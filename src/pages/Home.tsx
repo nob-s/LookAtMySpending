@@ -17,11 +17,11 @@ export function Home() {
   }
 
   return (
-    <div className="flex flex-col
-      bg-white dark:bg-gray-600 h-screen
+    <div className="flex flex-col h-screen
+      bg-white dark:bg-gray-600
       text-black dark:text-white">
       <Topbar setWindowManage={setWindowManage} setWindowAliases={setWindowAliases} />
-      <div className="flex flex-col h-full">
+      <div className="flex-1 flex min-h-0">
         {mainWindow === WINDOW_MANAGE && <Manage/>}
         {mainWindow === WINDOW_ALIASES && <Aliases/>}
       </div>

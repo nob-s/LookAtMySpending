@@ -15,8 +15,14 @@ export class CsvToTransactionsParser {
           const transactions = rows.slice(1, -1).map(row => {
             const date = row[0];
             const desc = row[1];
-            const amt = row[2];
-            const bank = row[3];
+            let amt = row[2];
+            let bank = row[3];
+
+            if (Number.isNaN(Number(amt))) {
+              amt = bank;
+              bank = "";
+            }
+
             return new Transaction(date, desc, amt, bank);
           });
 

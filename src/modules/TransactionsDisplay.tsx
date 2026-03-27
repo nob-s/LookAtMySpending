@@ -1,10 +1,11 @@
 import type { Transaction } from "../model/Transaction.ts";
+import { DisplayRow } from "./DisplayRow.tsx";
 
 interface TransactionsDisplayProps {
   transactions: Transaction[];
 }
 
-export const TransactionsDisplay: React.FC<TransactionsDisplayProps> = ({transactions}) => {
+const TransactionsDisplay: React.FC<TransactionsDisplayProps> = ({transactions}) => {
   function formatDate(date: Date): string {
     return [
       String(date.getDate()).padStart(2, '0'),
@@ -13,24 +14,24 @@ export const TransactionsDisplay: React.FC<TransactionsDisplayProps> = ({transac
     ].join('-');
   }
 
+  function getNetAmount(transs: Transaction[]): number {
+    return transs
+      .map(trans => trans.amount)
+      .reduce((a, b) => a + b, 0);
+  }
+
   return (
     <div className="flex flex-col">
       {/* header */}
-      <div className="grid grid-cols-[120px_1fr_100px_120px] font-semibold border-b border-gray-800 gap-x-2">
-        <p className="border-r border-gray-600 p-2">Date</p>
-        <p className="border-r border-gray-600 p-2">Description</p>
-        <p className="border-r border-gray-600 p-2">Amount</p>
-        <p className="border-r border-gray-600 p-2">Bank</p>
-      </div>
-
-      {transactions.map((trans, index) => (
-        <div key={index} className="grid grid-cols-[120px_1fr_100px_120px] border-b border-gray-600 gap-x-2">
-          <p className="border-r border-gray-600 p-2">{formatDate(trans.date)}</p>
-          <p className="border-r border-gray-600 p-2">{trans.description}</p>
-          <p className="border-r border-gray-600 p-2">{trans.amount}</p>
-          <p className="border-r border-gray-600 p-2">{trans.bank}</p>
-        </div>
-      ))}
+      <DisplayRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
+       {/* body */}
+      {transactions.map(trans =>
+        <DisplayRow date={formatDate(trans.date)} description={trans.description}
+                    amount={String(trans.amount)} bank={trans.bank}/>
+      )}
+      {/*sum*/}
+      <DisplayRow date={"Total"} description={""} amount={String(getNetAmount(transactions).toFixed(2))} bank={""}/>
     </div>
   );
 }
+export default TransactionsDisplay
