@@ -21,7 +21,7 @@ export function Home() {
       bg-white dark:bg-gray-600 h-screen
       text-black dark:text-white">
       <Topbar setWindowManage={setWindowManage} setWindowAliases={setWindowAliases} />
-      <div className="flex flex-col">
+      <div className="flex flex-col h-full">
         {mainWindow === WINDOW_MANAGE && <Manage/>}
         {mainWindow === WINDOW_ALIASES && <Aliases/>}
       </div>
