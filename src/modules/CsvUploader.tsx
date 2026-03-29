@@ -45,7 +45,7 @@ export const CsvUploader: React.FC<FileUploaderProps> = ({onTransactionsLoaded})
         file:bg-gray-200 file:text-gray-700
         hover:file:bg-gray-400" />
       {file && (
-        <div>
+        <div className="pl-1">
           <p>Size: {Calc.bytesToFileSize(file.size)}</p>
           <p>Type: {file.type}</p>
         </div>

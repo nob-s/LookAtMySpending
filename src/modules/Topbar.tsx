@@ -19,11 +19,12 @@ export const TopbarButton = ({name, onClick }: TopbarButtonProps) => {
 }
 
 interface TopbarProps {
-  setWindowManage: () => void,
   setWindowAliases: () => void,
+  setWindowManage: () => void,
+  setWindowImportData: () => void,
 }
 
-export const Topbar = ( {setWindowManage, setWindowAliases} : TopbarProps) => {
+export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData} : TopbarProps) => {
 
   function toggleDark() {
     document.documentElement.classList.toggle('dark');
@@ -32,12 +33,13 @@ export const Topbar = ( {setWindowManage, setWindowAliases} : TopbarProps) => {
   return (
     <div className="=
       flex items-center justify-center w-screen pr-4 pl-4
-      border-b-4 rounded-bl-2xl rounded-br-2xl
+      border-b-3 rounded-bl-2xl rounded-br-2xl
       border-gray-600 dark:border-white gap-2
       bg-white dark:bg-gray-600">
       <div className="flex flex-1 justify-center gap-2">
         <TopbarButton name={"✏️"} onClick={setWindowAliases} />
         <TopbarButton name={"🏠"} onClick={setWindowManage}/>
+        <TopbarButton name={"⬇️"} onClick={setWindowImportData}/>
       </div>
       <div className="ml-auto">
         <TopbarButton name={"🌙"} onClick={toggleDark} />

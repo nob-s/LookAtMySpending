@@ -1,9 +1,9 @@
-import { CsvUploader } from "./CsvUploader.tsx";
+import { CsvUploader } from "../modules/CsvUploader.tsx";
 import type { Transaction } from "../model/Transaction.ts";
 import { useState } from "react";
-import TransactionsDisplay from "./TransactionsDisplay.tsx";
+import TransactionsDisplay from "../modules/TransactionsDisplay.tsx";
 
-export function Manage() {
+export function ImportData() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   function handleTransactionsLoaded(transactions: Transaction[]) {
     setTransactions(transactions);
@@ -15,7 +15,7 @@ export function Manage() {
       <div className="
       flex flex-col max-h-full overflow-y-auto min-h-0
       px-4 gap-y-1
-      border-r-2 border-gray-600 rounded-r-xl">
+      border-r-3 border-gray-600 rounded-r-xl">
         {/*text*/}
         <div className="flex py-1 gap-x-1 text-sm">
           <p>Upload your csv file taken from</p>
