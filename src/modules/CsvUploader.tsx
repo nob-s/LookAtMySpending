@@ -47,7 +47,6 @@ export const CsvUploader: React.FC<FileUploaderProps> = ({onTransactionsLoaded})
       {file && (
         <div className="pl-1">
           <p>Size: {Calc.bytesToFileSize(file.size)}</p>
-          <p>Type: {file.type}</p>
         </div>
       )}
     </div>
