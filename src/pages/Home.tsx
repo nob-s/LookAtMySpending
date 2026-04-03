@@ -12,6 +12,7 @@ export function Home() {
 
   const [mainWindow, setMainWindow] = useState(WINDOW_IMPORT_DATA)
   const [allTransactions, setAllTransactions] = useState<Record<string, Transaction[]>>({});
+  const [aliases, setAliases] = useState<Record<string, string>>({});
 
   function handleAddRows(date: string, transactions: Transaction[]) {
     setAllTransactions(prev => ({
@@ -28,7 +29,7 @@ export function Home() {
               setWindowAliases={() => setMainWindow(WINDOW_ALIASES)}
               setWindowImportData={() => setMainWindow(WINDOW_IMPORT_DATA)}/>
       <div className="flex-1 flex min-h-0">
-        {mainWindow === WINDOW_ALIASES && <Aliases/>}
+        {mainWindow === WINDOW_ALIASES && <Aliases setHomeAliases={setAliases}/>}
         {mainWindow === WINDOW_MANAGE && <Manage allTransactions={allTransactions} />}
         {mainWindow === WINDOW_IMPORT_DATA && <ImportData handleAddRows={handleAddRows}/>}
       </div>
