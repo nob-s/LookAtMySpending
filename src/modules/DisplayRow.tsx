@@ -15,7 +15,9 @@ export const DisplayRow: React.FC<DisplayRowProps> = ({date, description, amount
         group hover:bg-gray-200">
       <p className="border-r border-gray-600 p-2">{date}</p>
       <p className="border-r border-gray-600 p-2">{description}</p>
-      <p className="border-r border-gray-600 p-2">{amount}</p>
+      <p className="border-r border-gray-600 p-2 text-right">
+        {Number(amount).toFixed(2)}
+      </p>
       <p className="border-r border-gray-600 p-2">{bank}</p>
     </div>
   );
