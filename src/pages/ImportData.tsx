@@ -26,14 +26,14 @@ export const Button = ({name, onClick}: ButtonProps) => {
 }
 
 interface ImportDataProps {
-  handleAddRows: (transactions: Transaction[]) => void,
+  handleAddRows: (date: string, transactions: Transaction[]) => void,
 }
 
 export function ImportData({handleAddRows}: ImportDataProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   function addRowsAndClear() {
-    handleAddRows(transactions)
+    handleAddRows(new Date().toString(), transactions)
     setTransactions([])
   }
 

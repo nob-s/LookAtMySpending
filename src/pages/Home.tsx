@@ -11,10 +11,13 @@ export function Home() {
   const WINDOW_IMPORT_DATA = "import_data"
 
   const [mainWindow, setMainWindow] = useState(WINDOW_IMPORT_DATA)
-  const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
+  const [allTransactions, setAllTransactions] = useState<Record<string, Transaction[]>>({});
 
-  function handleAddRows(transactions: Transaction[]) {
-    setAllTransactions(allTransactions.concat(transactions));
+  function handleAddRows(date: string, transactions: Transaction[]) {
+    setAllTransactions(prev => ({
+      ...prev,
+      [date]: [...(prev[date] || []), ...transactions],
+    }));
   }
 
   return (
