@@ -30,6 +30,8 @@ export function ImportData() {
     useStore((s) => s.tempTransactions)
   const setTempTransactions =
     useStore((s) => s.setTempTransactions)
+  const updateTempTransactions =
+    useStore((s) => s.updateTempTransactions);
 
   function addRowsAndClear() {
     if (tempTransactions.length === 0) { return }
@@ -58,7 +60,7 @@ export function ImportData() {
       <div className="flex-1 overflow-y-auto p-4">
         { tempTransactions.length === 0
           ? <p className="text-sm">No transactions imported yet.</p>
-          : <TransactionsDisplay transactions={tempTransactions} />
+          : <TransactionsDisplay updateMethod={updateTempTransactions} transactions={tempTransactions} />
         }
       </div>
     </div>

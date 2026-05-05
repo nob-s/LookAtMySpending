@@ -9,11 +9,13 @@ function mergeAllTransactions(transactions: TransactionImport[]): Transaction[] 
 
 export function Manage() {
   const allTransactions = useStore((s) => s.allTransactions);
+  const updateTransaction =
+    useStore((s) => s.updateTransaction);
   return (
     <div className="">
       { allTransactions.length === 0
         ? <p>No transactions imported yet.</p>
-        : <TransactionsDisplay transactions={mergeAllTransactions(allTransactions)} />
+        : <TransactionsDisplay updateMethod={updateTransaction} transactions={mergeAllTransactions(allTransactions)} />
       }
     </div>
   )

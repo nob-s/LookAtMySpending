@@ -3,14 +3,15 @@ import { DisplayRow } from "./DisplayRow.tsx";
 
 interface TransactionsDisplayProps {
   transactions: Transaction[];
+  updateMethod?: (itemIndex: number, updated: Transaction) => void;
 }
 
-const TransactionsDisplay: React.FC<TransactionsDisplayProps> = ({transactions}) => {
+const TransactionsDisplay: React.FC<TransactionsDisplayProps> = ({transactions, updateMethod}) => {
   function formatDate(date: Date): string {
     return [
-      String(date.getDate()).padStart(2, '0'),
+      date.getFullYear(),
       String(date.getMonth() + 1).padStart(2, '0'),
-      date.getFullYear()
+      String(date.getDate()).padStart(2, '0'),
     ].join('-');
   }
 
@@ -25,9 +26,10 @@ const TransactionsDisplay: React.FC<TransactionsDisplayProps> = ({transactions})
       {/* Headers */}
       <DisplayRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
        {/* All transactions */}
-      {transactions.map(trans =>
+      {transactions.map((trans, flatIndex) =>
         <DisplayRow date={formatDate(trans.date)} description={trans.description}
-                    amount={String(trans.amount)} bank={trans.bank}/>
+                    amount={trans.amount.toFixed(2)} bank={trans.bank}
+                    updateMethod={updateMethod} transaction={trans} flatIndex={flatIndex}/>
       )}
       {/* Sum of all transactions */}
       <DisplayRow date={"Total"} description={""} amount={String(getNetAmount(transactions).toFixed(2))} bank={""}/>

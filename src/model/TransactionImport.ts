@@ -5,9 +5,9 @@ export class TransactionImport {
   label: string;
   transactions: Transaction[];
 
-  constructor(transactions: Transaction[]) {
+  constructor(transactions: Transaction[], id?: string) {
     this.transactions = transactions;
-    this.id = crypto.randomUUID();
+    this.id = id ?? crypto.randomUUID();
     this.label = this.getYearMonthString();
   }
 
