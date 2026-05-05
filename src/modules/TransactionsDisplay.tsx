@@ -22,14 +22,14 @@ const TransactionsDisplay: React.FC<TransactionsDisplayProps> = ({transactions})
 
   return (
     <div className="flex flex-col">
-      {/* header */}
+      {/* Headers */}
       <DisplayRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
-       {/* body */}
+       {/* All transactions */}
       {transactions.map(trans =>
         <DisplayRow date={formatDate(trans.date)} description={trans.description}
                     amount={String(trans.amount)} bank={trans.bank}/>
       )}
-      {/*sum*/}
+      {/* Sum of all transactions */}
       <DisplayRow date={"Total"} description={""} amount={String(getNetAmount(transactions).toFixed(2))} bank={""}/>
     </div>
   );
