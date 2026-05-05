@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Topbar } from "../modules/Topbar.tsx";
 import { ImportData } from "./ImportData.tsx";
 import { Aliases } from "./Aliases.tsx";
-import type { Transaction } from "../model/Transaction.ts";
 import { Manage } from "./Manage.tsx";
+import { HashRouter, Routes, Route } from 'react-router-dom'
 
 export function Home() {
   const WINDOW_MANAGE = "manage"
@@ -11,15 +11,6 @@ export function Home() {
   const WINDOW_IMPORT_DATA = "import_data"
 
   const [mainWindow, setMainWindow] = useState(WINDOW_IMPORT_DATA)
-  const [allTransactions, setAllTransactions] = useState<Record<string, Transaction[]>>({});
-  const [aliases, setAliases] = useState<Record<string, string>>({});
-
-  function handleAddRows(date: string, transactions: Transaction[]) {
-    setAllTransactions(prev => ({
-      ...prev,
-      [date]: [...(prev[date] || []), ...transactions],
-    }));
-  }
 
   return (
     <div className="flex flex-col h-screen
@@ -29,9 +20,9 @@ export function Home() {
               setWindowAliases={() => setMainWindow(WINDOW_ALIASES)}
               setWindowImportData={() => setMainWindow(WINDOW_IMPORT_DATA)}/>
       <div className="flex-1 flex min-h-0">
-        {mainWindow === WINDOW_ALIASES && <Aliases setHomeAliases={setAliases}/>}
-        {mainWindow === WINDOW_MANAGE && <Manage allTransactions={allTransactions} />}
-        {mainWindow === WINDOW_IMPORT_DATA && <ImportData handleAddRows={handleAddRows}/>}
+        {mainWindow === WINDOW_ALIASES && <Aliases/>}
+        {mainWindow === WINDOW_MANAGE && <Manage/>}
+        {mainWindow === WINDOW_IMPORT_DATA && <ImportData/>}
       </div>
     </div>
   )

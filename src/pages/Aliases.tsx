@@ -1,17 +1,14 @@
-import { useState } from "react";
+import { useStore } from "../store/useStore.ts";
 
-interface AliasesProps {
-  setHomeAliases: (aliases: Record<string, string>) => void
-}
-
-export function Aliases({setHomeAliases}: AliasesProps) {
-  const [aliases, setAliases] = useState<Record<string, string>>({})
+export function Aliases() {
+  const addAliasToStore = useStore((s) => s.addAlias)
 
   return (
     <div className="flex flex-col">
       <p>aliases</p>
       <button
-      onClick={() => {setHomeAliases(aliases)}}>
+      onClick={() => {}}>
+        {/*TODO*/}
 
       </button>
     </div>

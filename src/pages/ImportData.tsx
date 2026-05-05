@@ -3,6 +3,7 @@ import type { Transaction } from "../model/Transaction.ts";
 import { useState } from "react";
 import TransactionsDisplay from "../modules/TransactionsDisplay.tsx";
 import { NewTabHyperlink } from "../modules/NewTabHyperlink.tsx";
+import { useStore } from "../store/useStore.ts";
 
 interface ButtonProps {
   name: string,
@@ -25,15 +26,14 @@ export const Button = ({name, onClick}: ButtonProps) => {
   )
 }
 
-interface ImportDataProps {
-  handleAddRows: (date: string, transactions: Transaction[]) => void,
-}
-
-export function ImportData({handleAddRows}: ImportDataProps) {
+export function ImportData() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const addTransactionsToStore =
+    useStore((s) => s.addTransactions)
 
   function addRowsAndClear() {
-    handleAddRows(new Date().toString(), transactions)
+    if (transactions.length === 0) { return }
+    addTransactionsToStore(transactions[0].getYearMonthString(), transactions);
     setTransactions([])
   }
 
