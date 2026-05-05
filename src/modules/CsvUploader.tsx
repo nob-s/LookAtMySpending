@@ -38,7 +38,9 @@ export const CsvUploader: React.FC<FileUploaderProps> = ({onTransactionsLoaded})
         type="file"
         accept=".csv"
         className="
-        border-gray-200 border-2
+        w-full overflow-hidden
+        border-r border-gray-500 dark:border-gray-500
+        bg-white dark:bg-gray-800
         block text-sm file:mr-4 file:py-1 file:px-1
         file:rounded file:border-2 file:border-gray-600
         file:text-sm file:font-semibold

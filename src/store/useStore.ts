@@ -8,6 +8,9 @@ interface StoreState {
   addTransactions: (newTransactions: Transaction[]) => void;
   removeTransactions: (id: string) => void;
 
+  tempTransactions: Transaction[];
+  setTempTransactions: (t: Transaction[]) => void;
+
   aliases: Record<string, string>;
   setAliases: (a: Record<string, string>) => void;
   addAlias: (phrase: string, alias: string) => void;
@@ -24,6 +27,9 @@ export const useStore = create<StoreState>((set) => ({
     allTransactions: state.allTransactions.filter((i) => i.id !== id)
   })),
 
+  tempTransactions: [],
+  setTempTransactions: (t) => set({tempTransactions: t}),
+
   aliases: {},
   setAliases: (a) => set({ aliases: a }),
   addAlias: (phrase, alias) => set((state) => ({
@@ -34,5 +40,4 @@ export const useStore = create<StoreState>((set) => ({
     delete aliases[phrase];
     return { aliases };
   }),
-
 }))

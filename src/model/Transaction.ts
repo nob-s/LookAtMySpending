@@ -13,11 +13,6 @@ export class Transaction {
     this.alias = "";
   }
 
-  public getYearMonthString(): string {
-    const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return this.date.getFullYear().toString() + shortMonths[this.date.getMonth()];
-  }
-
   setAlias(alias: string): void {
     this.alias = alias;
   }
