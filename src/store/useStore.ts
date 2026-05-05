@@ -1,11 +1,12 @@
 import {create} from 'zustand'
 import type { Transaction } from "../model/Transaction.ts";
+import { TransactionImport } from "../model/TransactionImport.ts";
 
 interface StoreState {
-  allTransactions: Record<string, Transaction[]>;
-  setTransactions: (t: Record<string, Transaction[]>) => void;
-  addTransactions: (dateString: string, newTransactions: Transaction[]) => void;
-  removeTransactions: (dateString: string) => void;
+  allTransactions: TransactionImport[];
+  setTransactions: (t: TransactionImport[]) => void;
+  addTransactions: (newTransactions: Transaction[]) => void;
+  removeTransactions: (id: string) => void;
 
   aliases: Record<string, string>;
   setAliases: (a: Record<string, string>) => void;
@@ -14,16 +15,14 @@ interface StoreState {
 }
 
 export const useStore = create<StoreState>((set) => ({
-  allTransactions: {},
+  allTransactions: [],
   setTransactions: (t) => set({allTransactions: t}),
-  addTransactions: (dateString, newTransactions) => set((state) => ({
-    allTransactions: { ...state.allTransactions, [dateString]: newTransactions }
+  addTransactions: (newTransactions) => set((state) => ({
+    allTransactions: [...state.allTransactions, new TransactionImport(newTransactions)],
   })),
-  removeTransactions: (dateString) => set((state) => {
-    const allTransactions = { ...state.allTransactions };
-    delete allTransactions[dateString];
-    return { allTransactions };
-  }),
+  removeTransactions: (id) => set((state) => ({
+    allTransactions: state.allTransactions.filter((i) => i.id !== id)
+  })),
 
   aliases: {},
   setAliases: (a) => set({ aliases: a }),

@@ -3,7 +3,6 @@ import { Topbar } from "../modules/Topbar.tsx";
 import { ImportData } from "./ImportData.tsx";
 import { Aliases } from "./Aliases.tsx";
 import { Manage } from "./Manage.tsx";
-import { HashRouter, Routes, Route } from 'react-router-dom'
 
 export function Home() {
   const WINDOW_MANAGE = "manage"

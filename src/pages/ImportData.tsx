@@ -33,7 +33,7 @@ export function ImportData() {
 
   function addRowsAndClear() {
     if (transactions.length === 0) { return }
-    addTransactionsToStore(transactions[0].getYearMonthString(), transactions);
+    addTransactionsToStore(transactions);
     setTransactions([])
   }
 
@@ -64,7 +64,10 @@ export function ImportData() {
 
       {/*main stuff*/}
       <div className="flex-1 overflow-y-auto">
-        <TransactionsDisplay transactions={transactions} />
+        { transactions.length === 0
+          ? <p>No transactions imported yet.</p>
+          : <TransactionsDisplay transactions={transactions} />
+        }
       </div>
     </div>
   )

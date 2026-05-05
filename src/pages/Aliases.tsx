@@ -9,7 +9,6 @@ export function Aliases() {
       <button
       onClick={() => {}}>
         {/*TODO*/}
-
       </button>
     </div>
   )
