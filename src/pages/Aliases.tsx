@@ -1,7 +1,7 @@
-import { useStore } from "../store/useStore.ts";
+import { useModelStore } from "../store/useModelStore.ts";
 
 export function Aliases() {
-  const addAliasToStore = useStore((s) => s.addAlias)
+  const addAliasToStore = useModelStore((s) => s.addAlias)
 
   return (
     <div className="flex flex-col">

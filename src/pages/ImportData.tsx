@@ -1,7 +1,7 @@
 import { CsvUploader } from "../modules/CsvUploader.tsx";
 import TransactionsDisplay from "../modules/TransactionsDisplay.tsx";
 import { NewTabHyperlink } from "../modules/general/NewTabHyperlink.tsx";
-import { useStore } from "../store/useStore.ts";
+import { useModelStore } from "../store/useModelStore.ts";
 
 interface ButtonProps {
   name: string,
@@ -25,13 +25,13 @@ export const Button = ({name, onClick}: ButtonProps) => {
 
 export function ImportData() {
   const addTransactionsToStore =
-    useStore((s) => s.addTransactions)
+    useModelStore((s) => s.addTransactions)
   const tempTransactions =
-    useStore((s) => s.tempTransactions)
+    useModelStore((s) => s.tempTransactions)
   const setTempTransactions =
-    useStore((s) => s.setTempTransactions)
+    useModelStore((s) => s.setTempTransactions)
   const updateTempTransactions =
-    useStore((s) => s.updateTempTransactions);
+    useModelStore((s) => s.updateTempTransactions);
 
   function addRowsAndClear() {
     if (tempTransactions.length === 0) { return }

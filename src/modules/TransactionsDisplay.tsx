@@ -1,5 +1,6 @@
 import type { Transaction } from "../model/Transaction.ts";
 import { DisplayRow } from "./DisplayRow.tsx";
+import { useState } from "react";
 
 interface TransactionsDisplayProps {
   transactions: Transaction[];

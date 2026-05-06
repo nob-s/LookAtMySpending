@@ -30,7 +30,7 @@ function findImportAndItem(allTransactions: TransactionImport[], flatIndex: numb
   throw new Error("Index out of bounds");
 }
 
-export const useStore = create<StoreState>((set) => ({
+export const useModelStore = create<StoreState>((set) => ({
   allTransactions: [],
   setTransactions: (t) => set({allTransactions: t}),
   updateTransaction: (flatIndex, updated) => set((state) => {
