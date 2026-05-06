@@ -6,21 +6,21 @@ interface TransactionsDisplayProps {
   updateMethod?: (itemIndex: number, updated: Transaction) => void;
 }
 
+function formatDate(date: Date): string {
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, '0'),
+    String(date.getDate()).padStart(2, '0'),
+  ].join('-');
+}
+
+function getNetAmount(transs: Transaction[]): number {
+  return transs
+    .map(trans => trans.amount)
+    .reduce((a, b) => a + b, 0);
+}
+
 const TransactionsDisplay: React.FC<TransactionsDisplayProps> = ({transactions, updateMethod}) => {
-  function formatDate(date: Date): string {
-    return [
-      date.getFullYear(),
-      String(date.getMonth() + 1).padStart(2, '0'),
-      String(date.getDate()).padStart(2, '0'),
-    ].join('-');
-  }
-
-  function getNetAmount(transs: Transaction[]): number {
-    return transs
-      .map(trans => trans.amount)
-      .reduce((a, b) => a + b, 0);
-  }
-
   return (
     <div className="flex flex-col">
       {/* Headers */}

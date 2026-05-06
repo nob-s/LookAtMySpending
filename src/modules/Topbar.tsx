@@ -3,12 +3,12 @@ interface TopbarButtonProps {
   onClick: () => void,
 }
 
-export const TopbarButton = ({name, onClick }: TopbarButtonProps) => {
+export const TopbarButton = ({name, onClick}: TopbarButtonProps) => {
   return (
     <button
       onClick={onClick}
       className="
-      min-w-28 px-4 py-2 rounded-lg font-medium text-sm
+      min-w-24 px-4 py-2 rounded-lg font-medium text-sm
       border border-gray-500 dark:border-gray-500
       bg-gray-50 dark:bg-gray-700
       hover:bg-gray-100 dark:hover:bg-gray-600
@@ -37,7 +37,7 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
       border-b border-gray-500 dark:border-gray-500
       bg-white dark:bg-gray-800
       shadow-sm">
-      <div className="flex flex-1 justify-center gap-2">
+      <div className="flex flex-1 gap-2">
         <TopbarButton name={"Aliases"} onClick={setWindowAliases} />
         <TopbarButton name={"Main"} onClick={setWindowManage}/>
         <TopbarButton name={"Import"} onClick={setWindowImportData}/>
