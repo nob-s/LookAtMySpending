@@ -37,7 +37,7 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
       border-b border-gray-500 dark:border-gray-500
       bg-white dark:bg-gray-800
       shadow-sm">
-      <div className="flex flex-1 gap-2">
+      <div className="flex flex-1 gap-2 justify-center">
         <TopbarButton name={"Aliases"} onClick={setWindowAliases} />
         <TopbarButton name={"Main"} onClick={setWindowManage}/>
         <TopbarButton name={"Import"} onClick={setWindowImportData}/>

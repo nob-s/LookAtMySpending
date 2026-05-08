@@ -1,8 +1,7 @@
-import * as React from "react";
-import { Transaction } from "../model/Transaction.ts";
+import { Transaction } from "../../model/Transaction.ts";
 import { useEffect, useState } from "react";
 
-interface DisplayRowProps {
+interface ImportRowProps {
   date: string;
   description: string;
   amount: string;
@@ -12,7 +11,7 @@ interface DisplayRowProps {
   flatIndex?: number;
 }
 
-export const DisplayRow: React.FC<DisplayRowProps> = ({date, description, amount, bank, updateMethod, transaction, flatIndex}) => {
+export default function ImportRow({date, description, amount, bank, updateMethod, transaction, flatIndex}: ImportRowProps) {
   const isEditable =
     updateMethod != undefined && transaction !== undefined && flatIndex !== undefined;
   const [rawDate, setRawDate] = useState(date);

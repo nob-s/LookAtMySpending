@@ -1,5 +1,5 @@
 import type { Transaction } from "../model/Transaction.ts";
-import TransactionsDisplay from "../modules/TransactionsDisplay.tsx";
+import ImportDisplay from "../modules/grids/ImportDisplay.tsx";
 import { useModelStore } from "../store/useModelStore.ts";
 import type { TransactionImport } from "../model/TransactionImport.ts";
 
@@ -15,7 +15,7 @@ export function Manage() {
     <div className="">
       { allTransactions.length === 0
         ? <p>No transactions imported yet.</p>
-        : <TransactionsDisplay updateMethod={updateTransaction} transactions={mergeAllTransactions(allTransactions)} />
+        : <ImportDisplay updateMethod={updateTransaction} transactions={mergeAllTransactions(allTransactions)} />
       }
     </div>
   )

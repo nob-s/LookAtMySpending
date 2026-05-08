@@ -15,6 +15,7 @@ interface StoreState {
 
   aliases: Record<string, string>;
   setAliases: (a: Record<string, string>) => void;
+  updateAlias: (newPhrase: string, oldPhrase: string, alias: string) => void;
   addAlias: (phrase: string, alias: string) => void;
   removeAlias: (phrase: string) => void;
 }
@@ -58,6 +59,12 @@ export const useModelStore = create<StoreState>((set) => ({
 
   aliases: {},
   setAliases: (a) => set({ aliases: a }),
+  updateAlias: (oldPhrase, newPhrase, alias) => set(state => {
+    const aliases = { ...state.aliases };
+    delete aliases[oldPhrase];
+    aliases[newPhrase] = alias;
+    return { aliases };
+  }),
   addAlias: (phrase, alias) => set((state) => ({
     aliases: { ...state.aliases, [phrase]: alias }
   })),

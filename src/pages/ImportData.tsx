@@ -1,27 +1,10 @@
 import { CsvUploader } from "../modules/CsvUploader.tsx";
-import TransactionsDisplay from "../modules/TransactionsDisplay.tsx";
+import ImportDisplay from "../modules/grids/ImportDisplay.tsx";
 import { NewTabHyperlink } from "../modules/general/NewTabHyperlink.tsx";
 import { useModelStore } from "../store/useModelStore.ts";
+import Button from "../modules/general/Button.tsx";
 
-interface ButtonProps {
-  name: string,
-  onClick: () => void,
-}
 
-export const Button = ({name, onClick}: ButtonProps) => {
-  return (
-    <button
-      onClick={onClick}
-      className="
-        border-2 rounded-xl p-2 w-full
-        border-gray-500 dark:border-gray-500
-        hover:bg-gray-200 dark:hover:bg-gray-700
-        active:bg-gray-400 dark:active:bg-gray-900
-        transition-all duration-150">
-      {name}
-    </button>
-  )
-}
 
 export function ImportData() {
   const addTransactionsToStore =
@@ -60,7 +43,7 @@ export function ImportData() {
       <div className="flex-1 overflow-y-auto p-4">
         { tempTransactions.length === 0
           ? <p className="text-sm">No transactions imported yet.</p>
-          : <TransactionsDisplay updateMethod={updateTempTransactions} transactions={tempTransactions} />
+          : <ImportDisplay updateMethod={updateTempTransactions} transactions={tempTransactions} />
         }
       </div>
     </div>
