@@ -62,6 +62,9 @@ export const useModelStore = create<StoreState>((set) => ({
   updateAlias: (oldPhrase, newPhrase, alias) => set(state => {
     const aliases = { ...state.aliases };
     delete aliases[oldPhrase];
+    if (newPhrase == "") {
+      return { aliases }
+    }
     aliases[newPhrase] = alias;
     return { aliases };
   }),

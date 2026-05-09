@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Topbar } from "../modules/Topbar.tsx";
 import { ImportData } from "./ImportData.tsx";
 import { Aliases } from "./Aliases.tsx";
@@ -13,11 +13,12 @@ export function Home() {
 
   return (
     <div className="flex flex-col h-screen
-      bg-white dark:bg-gray-600
+      bg-white dark:bg-gray-700
       text-black dark:text-white">
-      <Topbar setWindowManage={() => setMainWindow(WINDOW_MANAGE)}
-              setWindowAliases={() => setMainWindow(WINDOW_ALIASES)}
-              setWindowImportData={() => setMainWindow(WINDOW_IMPORT_DATA)}/>
+      <Topbar
+        setWindowManage={() => setMainWindow(WINDOW_MANAGE)}
+        setWindowAliases={() => setMainWindow(WINDOW_ALIASES)}
+        setWindowImportData={() => setMainWindow(WINDOW_IMPORT_DATA)}/>
       <div className="flex-1 flex min-h-0">
         {mainWindow === WINDOW_ALIASES && <Aliases/>}
         {mainWindow === WINDOW_MANAGE && <Manage/>}

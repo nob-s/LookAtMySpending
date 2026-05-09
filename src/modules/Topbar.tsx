@@ -1,3 +1,8 @@
+import { useEffect } from "react";
+import Modal from "./general/Modal.tsx";
+import { useModelStore } from "../store/useModelStore.ts";
+import { useUiStore } from "../store/useUiStore.ts";
+
 interface TopbarButtonProps {
   name: string,
   onClick: () => void,
@@ -26,21 +31,45 @@ interface TopbarProps {
 }
 
 export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData} : TopbarProps) => {
-
   function toggleDark() {
     document.documentElement.classList.toggle('dark');
   }
+  const addAliasToStore = useModelStore((s) => s.addAlias)
+  const modalOpen = useUiStore(s => s.modalOpen)
+  const setModalOpen = useUiStore(s => s.setModalOpen)
+  const toggleModal = useUiStore(s => s.toggleModal)
+  function handleConfirm(phrase: string, alias: string): void {
+    if (phrase && alias) {
+      addAliasToStore(phrase, alias)
+      setModalOpen(false)
+    }
+  }
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.key === "1") setWindowAliases();
+      if (e.key === "2") setWindowManage();
+      if (e.key === "3") setWindowImportData();
+      if (e.key === "4") toggleModal();
+    };
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [setWindowAliases, setWindowManage, setWindowImportData, toggleModal]);
 
   return (
     <div className="=
-      flex items-center w-full px-6 py-3
+      flex w-full px-6 py-3
       border-b border-gray-500 dark:border-gray-500
       bg-white dark:bg-gray-800
       shadow-sm">
+      {/* Popup */}
+      <Modal enable={modalOpen} handleCancel={() => setModalOpen(false)} handleConfirm={handleConfirm}/>
+      {/*Actual Topbar*/}
       <div className="flex flex-1 gap-2 justify-center">
-        <TopbarButton name={"Aliases"} onClick={setWindowAliases} />
-        <TopbarButton name={"Main"} onClick={setWindowManage}/>
-        <TopbarButton name={"Import"} onClick={setWindowImportData}/>
+        <TopbarButton name={"Aliases [1]"} onClick={setWindowAliases} />
+        <TopbarButton name={"Main [2]"} onClick={setWindowManage}/>
+        <TopbarButton name={"Import [3]"} onClick={setWindowImportData}/>
       </div>
       <div className="ml-auto">
         <TopbarButton name={"🌙"} onClick={toggleDark} />
