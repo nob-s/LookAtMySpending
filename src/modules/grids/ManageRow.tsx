@@ -12,7 +12,7 @@ interface MainRowProps {
   flatIndex?: number;
 }
 
-export default function MainRow({date, description, amount, bank, updateMethod, transaction, flatIndex}: MainRowProps) {
+export default function ManageRow({date, description, amount, bank, updateMethod, transaction, flatIndex}: MainRowProps) {
   const isEditable =
     updateMethod != undefined && transaction !== undefined && flatIndex !== undefined;
   const [rawDate, setRawDate] = useState(date);

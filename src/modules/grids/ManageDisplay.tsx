@@ -1,5 +1,5 @@
 import type { Transaction } from "../../model/Transaction.ts";
-import MainRow from "./MainRow.tsx";
+import ManageRow from "./ManageRow.tsx";
 
 interface MainDisplayProps {
   transactions: Transaction[];
@@ -20,19 +20,19 @@ function getNetAmount(transs: Transaction[]): number {
     .reduce((a, b) => a + b, 0);
 }
 
-export default function MainDisplay({transactions, updateMethod}: MainDisplayProps) {
+export default function ManageDisplay({transactions, updateMethod}: MainDisplayProps) {
   return (
     <div className="flex flex-col">
       {/* Headers */}
-      <MainRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
+      <ManageRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
        {/* All transactions */}
       {transactions.map((trans, flatIndex) =>
-        <MainRow date={formatDate(trans.date)} description={trans.description}
-                 amount={trans.amount.toFixed(2)} bank={trans.bank}
-                 updateMethod={updateMethod} transaction={trans} flatIndex={flatIndex}/>
+        <ManageRow date={formatDate(trans.date)} description={trans.description}
+                   amount={trans.amount.toFixed(2)} bank={trans.bank}
+                   updateMethod={updateMethod} transaction={trans} flatIndex={flatIndex}/>
       )}
       {/* Sum of all transactions */}
-      <MainRow date={"Total"} description={""} amount={String(getNetAmount(transactions).toFixed(2))} bank={""}/>
+      <ManageRow date={"Total"} description={""} amount={String(getNetAmount(transactions).toFixed(2))} bank={""}/>
     </div>
   );
 }
