@@ -60,7 +60,7 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [setWindowAliases, setWindowManage, setWindowImportData, toggleModal]);
+  }, [setWindowAliases, setWindowManage, setWindowImportData, toggleModal, setModalOpen]);
 
   return (
     <div className="=
