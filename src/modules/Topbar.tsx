@@ -62,7 +62,7 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [setWindowAliases, setWindowManage, setWindowImportData,
-    toggleModal, toggleAliasView]);
+    modalOpen, toggleModal, toggleAliasView]);
 
   return (
     <div className="=
