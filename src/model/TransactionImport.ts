@@ -12,9 +12,7 @@ export class TransactionImport {
   }
 
   private getYearMonthString(): string {
-    if (this.transactions.length === 0) {
-      return "No Transactions";
-    }
+    if (this.transactions.length === 0) { return "No Transactions"; }
     const date = this.transactions[0].date;
     const shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     return date.getFullYear() + " " + shortMonths[date.getMonth()];

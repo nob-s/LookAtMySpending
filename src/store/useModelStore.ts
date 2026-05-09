@@ -1,6 +1,7 @@
 import {create} from 'zustand'
-import type { Transaction } from "../model/Transaction.ts";
+import { Transaction } from "../model/Transaction.ts";
 import { TransactionImport } from "../model/TransactionImport.ts";
+import { persist } from "zustand/middleware";
 
 interface StoreState {
   allTransactions: TransactionImport[];
@@ -34,52 +35,85 @@ function findImportAndItem(allTransactions: TransactionImport[], flatIndex: numb
   throw new Error("Index out of bounds");
 }
 
-export const useModelStore = create<StoreState>((set) => ({
-  allTransactions: [],
-  setTransactions: (t) => set({allTransactions: t}),
-  updateTransaction: (flatIndex, updated) => set((state) => {
-    const allTransactions = [...state.allTransactions];
-    const [importIndex, itemIndex] = findImportAndItem(allTransactions, flatIndex);
-    const transactions = [...allTransactions[importIndex].transactions];
-    transactions[itemIndex] = updated;
-    allTransactions[importIndex] = new TransactionImport(transactions, allTransactions[importIndex].id);
-    return { allTransactions };
-  }),
-  addTransactions: (newTransactions) => set((state) => ({
-    allTransactions: [...state.allTransactions, new TransactionImport(newTransactions)],
-  })),
-  removeTransactions: (id) => set((state) => ({
-    allTransactions: state.allTransactions.filter((i) => i.id !== id)
-  })),
+export const useModelStore = create<StoreState>()(
+  persist((set) => ({
+    allTransactions: [],
+    setTransactions: (t) => set({allTransactions: t}),
+    updateTransaction: (flatIndex, updated) => set((state) => {
+      const allTransactions = [...state.allTransactions];
+      const [importIndex, itemIndex] = findImportAndItem(allTransactions, flatIndex);
+      const transactions = [...allTransactions[importIndex].transactions];
+      transactions[itemIndex] = updated;
+      allTransactions[importIndex] = new TransactionImport(transactions, allTransactions[importIndex].id);
+      return { allTransactions };
+    }),
+    addTransactions: (newTransactions) => set((state) => ({
+      allTransactions: [...state.allTransactions, new TransactionImport(newTransactions)],
+    })),
+    removeTransactions: (id) => set((state) => ({
+      allTransactions: state.allTransactions.filter((i) => i.id !== id)
+    })),
 
-  tempTransactions: [],
-  setTempTransactions: (t) => set({tempTransactions: t}),
-  updateTempTransactions: (itemIndex, updated) => set((state) => {
-    const tempTransactions = [...state.tempTransactions]
-    tempTransactions[itemIndex] = updated;
-    return { tempTransactions }
-  }),
+    tempTransactions: [],
+    setTempTransactions: (t) => set({tempTransactions: t}),
+    updateTempTransactions: (itemIndex, updated) => set((state) => {
+      const tempTransactions = [...state.tempTransactions]
+      tempTransactions[itemIndex] = updated;
+      return { tempTransactions }
+    }),
 
-  aliases: {},
-  setAliases: (a) => set({ aliases: a }),
-  updateAlias: (oldPhrase, newPhrase, alias) => set(state => {
-    const aliases = { ...state.aliases };
-    delete aliases[oldPhrase];
-    if (newPhrase == "") {
-      return { aliases }
+    aliases: {},
+    setAliases: (a) => set({ aliases: a }),
+    updateAlias: (oldPhrase, newPhrase, alias) => set(state => {
+      const aliases = { ...state.aliases };
+      delete aliases[oldPhrase];
+      if (newPhrase == "") {
+        return { aliases }
+      }
+      aliases[newPhrase] = alias;
+      return { aliases };
+    }),
+    addAlias: (phrase, alias) => set((state) => ({
+      aliases: { ...state.aliases, [phrase]: alias }
+    })),
+    removeAlias: (phrase) => set((state) => {
+      const aliases = { ...state.aliases };
+      delete aliases[phrase];
+      return { aliases };
+    }),
+
+    isInAliasView: false,
+    toggleAliasView: () => set(s => ({ isInAliasView: !s.isInAliasView })),
+  }),
+    {
+      name: 'model-store',
+      storage: {
+        getItem: (name) => {
+          const str = localStorage.getItem(name);
+          if (!str) return null;
+          return JSON.parse(str, (key, value) => {
+            // Revive Transaction objects inside TransactionImport arrays
+            if (key === 'allTransactions' && Array.isArray(value)) {
+              return value.map((importObj: any) =>
+                new TransactionImport(
+                  importObj.transactions.map((t: any) =>
+                    new Transaction(new Date(t.date), t.description, String(t.amount), t.bank)
+                  ),
+                  importObj.id
+                )
+              );
+            }
+            if (key === 'tempTransactions' && Array.isArray(value)) {
+              return value.map((t: any) =>
+                new Transaction(new Date(t.date), t.description, String(t.amount), t.bank)
+              );
+            }
+            return value;
+          });
+        },
+        setItem: (name, value) => localStorage.setItem(name, JSON.stringify(value)),
+        removeItem: (name) => localStorage.removeItem(name),
+      },
     }
-    aliases[newPhrase] = alias;
-    return { aliases };
-  }),
-  addAlias: (phrase, alias) => set((state) => ({
-    aliases: { ...state.aliases, [phrase]: alias }
-  })),
-  removeAlias: (phrase) => set((state) => {
-    const aliases = { ...state.aliases };
-    delete aliases[phrase];
-    return { aliases };
-  }),
-
-  isInAliasView: false,
-  toggleAliasView: () => set(s => ({ isInAliasView: !s.isInAliasView })),
-}))
+  )
+)
