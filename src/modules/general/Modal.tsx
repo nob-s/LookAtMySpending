@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Button from "./Button.tsx";
 import { useModelStore } from "../../store/useModelStore.ts";
+import { useUiStore } from "../../store/useUiStore.ts";
 
 interface ModalProps {
   enable: boolean;
@@ -15,6 +16,7 @@ export default function Modal( {enable, handleCancel, handleConfirm}: ModalProps
   const [second, setSecond] = useState("")
   const aliases = useModelStore(s => s.aliases);
   const firstRef = useRef<HTMLInputElement>(null);
+  const setModalOpen = useUiStore(s => s.setModalOpen)
 
   function handleWarningReset() {
     setEmptyWarning(false);
@@ -49,6 +51,8 @@ export default function Modal( {enable, handleCancel, handleConfirm}: ModalProps
     const handleKey = (e: KeyboardEvent) => {
       const inInput = e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement;
       if (inInput && e.key === "Enter") onConfirm();
+      if (inInput && e.key !== 'Escape') return;
+      if (e.key === "Escape") setModalOpen(false)
     };
 
     window.addEventListener("keydown", handleKey);

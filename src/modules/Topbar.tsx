@@ -56,14 +56,13 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
         e.preventDefault()
         toggleModal()
       }
-      if (e.key === "Escape") setModalOpen(false)
       if (e.key === "5") toggleAliasView();
     };
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [setWindowAliases, setWindowManage, setWindowImportData,
-    toggleModal, setModalOpen, toggleAliasView]);
+    toggleModal, toggleAliasView]);
 
   return (
     <div className="=
