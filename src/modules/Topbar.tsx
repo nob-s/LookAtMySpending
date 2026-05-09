@@ -4,7 +4,7 @@ import { useModelStore } from "../store/useModelStore.ts";
 import { useUiStore } from "../store/useUiStore.ts";
 
 interface TopbarButtonProps {
-  name: string,
+  name: React.ReactNode,
   onClick: () => void,
 }
 
@@ -38,6 +38,7 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
   const modalOpen = useUiStore(s => s.modalOpen)
   const setModalOpen = useUiStore(s => s.setModalOpen)
   const toggleModal = useUiStore(s => s.toggleModal)
+  const toggleAliasView = useModelStore((s) => s.toggleAliasView)
   function handleConfirm(phrase: string, alias: string): void {
     if (phrase && alias) {
       addAliasToStore(phrase, alias)
@@ -51,16 +52,18 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
       if (e.key === "1") setWindowAliases();
       if (e.key === "2") setWindowManage();
       if (e.key === "3") setWindowImportData();
-      if (e.key === '4') {
+      if (e.key === "4") {
         e.preventDefault()
         toggleModal()
       }
       if (e.key === "Escape") setModalOpen(false)
+      if (e.key === "5") toggleAliasView();
     };
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [setWindowAliases, setWindowManage, setWindowImportData, toggleModal, setModalOpen]);
+  }, [setWindowAliases, setWindowManage, setWindowImportData,
+    toggleModal, setModalOpen, toggleAliasView]);
 
   return (
     <div className="=
@@ -72,9 +75,9 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
       <Modal enable={modalOpen} handleCancel={() => setModalOpen(false)} handleConfirm={handleConfirm}/>
       {/*Actual Topbar*/}
       <div className="flex flex-1 gap-2 justify-center">
-        <TopbarButton name={"Aliases [1]"} onClick={setWindowAliases} />
-        <TopbarButton name={"Main [2]"} onClick={setWindowManage}/>
-        <TopbarButton name={"Import [3]"} onClick={setWindowImportData}/>
+        <TopbarButton name={<>Aliases <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">1</kbd></>} onClick={setWindowAliases} />
+        <TopbarButton name={<>Main <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">2</kbd></>} onClick={setWindowManage}/>
+        <TopbarButton name={<>Import <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">3</kbd></>} onClick={setWindowImportData}/>
       </div>
       <div className="ml-auto">
         <TopbarButton name={"🌙"} onClick={toggleDark} />

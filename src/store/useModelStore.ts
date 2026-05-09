@@ -18,6 +18,9 @@ interface StoreState {
   updateAlias: (newPhrase: string, oldPhrase: string, alias: string) => void;
   addAlias: (phrase: string, alias: string) => void;
   removeAlias: (phrase: string) => void;
+
+  isInAliasView: boolean;
+  toggleAliasView: () => void;
 }
 
 function findImportAndItem(allTransactions: TransactionImport[], flatIndex: number): [number, number] {
@@ -76,4 +79,7 @@ export const useModelStore = create<StoreState>((set) => ({
     delete aliases[phrase];
     return { aliases };
   }),
+
+  isInAliasView: false,
+  toggleAliasView: () => set(s => ({ isInAliasView: !s.isInAliasView })),
 }))

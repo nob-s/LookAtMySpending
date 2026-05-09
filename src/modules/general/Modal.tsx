@@ -15,7 +15,6 @@ export default function Modal( {enable, handleCancel, handleConfirm}: ModalProps
   const [second, setSecond] = useState("")
   const aliases = useModelStore(s => s.aliases);
   const firstRef = useRef<HTMLInputElement>(null);
-  useEffect(() => { if (enable) firstRef.current?.focus(); }, [enable]);
 
   function handleWarningReset() {
     setEmptyWarning(false);
@@ -44,6 +43,17 @@ export default function Modal( {enable, handleCancel, handleConfirm}: ModalProps
     handleCancel();
     handleReset();
   }
+
+  useEffect(() => { if (enable) firstRef.current?.focus(); }, [enable]);
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      const inInput = e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement;
+      if (inInput && e.key === "Enter") onConfirm();
+    };
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onConfirm]);
 
   return (enable &&
     (

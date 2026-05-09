@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Topbar } from "../modules/Topbar.tsx";
 import { ImportData } from "./ImportData.tsx";
 import { Aliases } from "./Aliases.tsx";
