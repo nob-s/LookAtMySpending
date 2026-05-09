@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Topbar } from "../modules/Topbar.tsx";
 import { ImportData } from "./ImportData.tsx";
 import { Aliases } from "./Aliases.tsx";
 import { Manage } from "./Manage.tsx";
+import { useUiStore } from "../store/useUiStore.ts";
 
 export function Home() {
   const WINDOW_MANAGE = "manage"
@@ -10,6 +11,15 @@ export function Home() {
   const WINDOW_IMPORT_DATA = "import_data"
 
   const [mainWindow, setMainWindow] = useState(WINDOW_IMPORT_DATA)
+
+  const isDarkMode = useUiStore(s => s.isDarkMode);
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   return (
     <div className="flex flex-col h-screen

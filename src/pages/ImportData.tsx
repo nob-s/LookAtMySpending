@@ -40,7 +40,7 @@ export function ImportData() {
       </div>
 
       {/* main */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-2">
         { tempTransactions.length === 0
           ? <p className="text-sm">No transactions imported yet.</p>
           : <ImportDisplay updateMethod={updateTempTransactions} transactions={tempTransactions} />

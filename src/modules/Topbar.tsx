@@ -31,9 +31,7 @@ interface TopbarProps {
 }
 
 export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData} : TopbarProps) => {
-  function toggleDark() {
-    document.documentElement.classList.toggle('dark');
-  }
+  const toggleDarkMode = useUiStore(s => s.toggleDarkMode)
   const addAliasToStore = useModelStore((s) => s.addAlias)
   const modalOpen = useUiStore(s => s.modalOpen)
   const setModalOpen = useUiStore(s => s.setModalOpen)
@@ -79,7 +77,7 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
         <TopbarButton name={<>Import <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">3</kbd></>} onClick={setWindowImportData}/>
       </div>
       <div className="ml-auto">
-        <TopbarButton name={"🌙"} onClick={toggleDark} />
+        <TopbarButton name={"🌙"} onClick={toggleDarkMode} />
       </div>
     </div>
   )

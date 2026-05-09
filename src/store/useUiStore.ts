@@ -5,6 +5,9 @@ interface UiStoreState {
   modalOpen: boolean;
   setModalOpen: (open: boolean) => void;
   toggleModal: () => void;
+
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
 }
 
 export const useUiStore = create<UiStoreState>() (
@@ -12,6 +15,9 @@ export const useUiStore = create<UiStoreState>() (
     modalOpen: false,
     setModalOpen: (open) => set({ modalOpen: open }),
     toggleModal: () => set({ modalOpen: !get().modalOpen }),
+
+    isDarkMode: true,
+    toggleDarkMode: () => set({ isDarkMode: !get().isDarkMode }),
   }),
     {name: 'ui-store'}
   )

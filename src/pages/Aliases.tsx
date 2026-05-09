@@ -34,7 +34,7 @@ export function Aliases() {
             <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">4</kbd>
             {" "}to add aliases, or{" "}
             <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">5</kbd>
-            {" "}to toggle aliases on all other pages.
+            {" "}to toggle aliases, on all other pages.
           </p>
         </div>
       </div>

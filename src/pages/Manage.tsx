@@ -12,7 +12,7 @@ export function Manage() {
   const updateTransaction =
     useModelStore((s) => s.updateTransaction);
   return (
-    <div className="">
+    <div className="flex-1 overflow-y-auto p-2">
       { allTransactions.length === 0
         ? <p>No transactions imported yet.</p>
         : <ImportDisplay updateMethod={updateTransaction} transactions={mergeAllTransactions(allTransactions)} />
