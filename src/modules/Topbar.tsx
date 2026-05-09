@@ -48,7 +48,7 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       const inInput = e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement;
-      if (inInput && e.key !== 'Escape') return;
+      if (inInput || (modalOpen && e.key !== "4")) return;
       if (e.key === "1") setWindowAliases();
       if (e.key === "2") setWindowManage();
       if (e.key === "3") setWindowImportData();
