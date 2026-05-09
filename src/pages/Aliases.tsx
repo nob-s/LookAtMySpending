@@ -27,8 +27,8 @@ export function Aliases() {
         bg-white dark:bg-gray-800">
         <div className="flex flex-wrap gap-x-1 gap-y-2 text-sm">
           <p>Add new alias</p>
-          <Button onClick={() => setModalOpen(true)} name={<>New alias <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">4</kbd></>} />
-          <Button onClick={toggleAliasView} name={<>Toggle alias <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">5</kbd></>} />
+          <Button onClick={() => setModalOpen(true)} name={<>New alias <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">Q</kbd></>} />
+          <Button onClick={toggleAliasView} name={<>Toggle alias <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">T</kbd></>} />
           <p className="text-sm text-gray-700 dark:text-gray-300">
             Press{" "}
             <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">4</kbd>

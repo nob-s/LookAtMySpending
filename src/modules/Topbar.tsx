@@ -28,9 +28,10 @@ interface TopbarProps {
   setWindowAliases: () => void,
   setWindowManage: () => void,
   setWindowImportData: () => void,
+  setWindowPastImports: () => void,
 }
 
-export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData} : TopbarProps) => {
+export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData, setWindowPastImports} : TopbarProps) => {
   const toggleDarkMode = useUiStore(s => s.toggleDarkMode)
   const addAliasToStore = useModelStore((s) => s.addAlias)
   const modalOpen = useUiStore(s => s.modalOpen)
@@ -46,15 +47,16 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       const inInput = e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement;
-      if (inInput || (modalOpen && e.key !== "4")) return;
+      if (inInput || (modalOpen && e.key !== "q")) return;
       if (e.key === "1") setWindowAliases();
       if (e.key === "2") setWindowManage();
       if (e.key === "3") setWindowImportData();
-      if (e.key === "4") {
+      if (e.key === "4") setWindowPastImports();
+      if (e.key === "q") {
         e.preventDefault()
         toggleModal()
       }
-      if (e.key === "5") toggleAliasView();
+      if (e.key === "t") toggleAliasView();
     };
 
     window.addEventListener("keydown", handleKey);
@@ -75,6 +77,7 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
         <TopbarButton name={<>Aliases <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">1</kbd></>} onClick={setWindowAliases} />
         <TopbarButton name={<>Main <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">2</kbd></>} onClick={setWindowManage}/>
         <TopbarButton name={<>Import <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">3</kbd></>} onClick={setWindowImportData}/>
+        <TopbarButton name={<>History <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">4</kbd></>} onClick={setWindowPastImports}/>
       </div>
       <div className="ml-auto">
         <TopbarButton name={"🌙"} onClick={toggleDarkMode} />

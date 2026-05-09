@@ -4,11 +4,13 @@ import { ImportData } from "./ImportData.tsx";
 import { Aliases } from "./Aliases.tsx";
 import { Manage } from "./Manage.tsx";
 import { useUiStore } from "../store/useUiStore.ts";
+import PastImport from "./PastImport.tsx";
 
 export function Home() {
   const WINDOW_MANAGE = "manage"
   const WINDOW_ALIASES = "aliases"
   const WINDOW_IMPORT_DATA = "import_data"
+  const WINDOW_PAST_IMPORTS = "past_imports"
 
   const [mainWindow, setMainWindow] = useState(WINDOW_IMPORT_DATA)
 
@@ -28,11 +30,13 @@ export function Home() {
       <Topbar
         setWindowManage={() => setMainWindow(WINDOW_MANAGE)}
         setWindowAliases={() => setMainWindow(WINDOW_ALIASES)}
-        setWindowImportData={() => setMainWindow(WINDOW_IMPORT_DATA)}/>
+        setWindowImportData={() => setMainWindow(WINDOW_IMPORT_DATA)}
+        setWindowPastImports={() => setMainWindow(WINDOW_PAST_IMPORTS)}/>
       <div className="flex-1 flex min-h-0">
         {mainWindow === WINDOW_ALIASES && <Aliases/>}
         {mainWindow === WINDOW_MANAGE && <Manage/>}
         {mainWindow === WINDOW_IMPORT_DATA && <ImportData/>}
+        {mainWindow === WINDOW_PAST_IMPORTS && <PastImport/>}
       </div>
     </div>
   )
