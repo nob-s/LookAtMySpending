@@ -46,11 +46,16 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData}
   }
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      const inInput = e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement;
+      if (inInput && e.key !== 'Escape') return;
       if (e.key === "1") setWindowAliases();
       if (e.key === "2") setWindowManage();
       if (e.key === "3") setWindowImportData();
-      if (e.key === "4") toggleModal();
+      if (e.key === '4') {
+        e.preventDefault()
+        toggleModal()
+      }
+      if (e.key === "Escape") setModalOpen(false)
     };
 
     window.addEventListener("keydown", handleKey);

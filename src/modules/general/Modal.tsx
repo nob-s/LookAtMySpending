@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "./Button.tsx";
 import { useModelStore } from "../../store/useModelStore.ts";
 
@@ -14,6 +14,8 @@ export default function Modal( {enable, handleCancel, handleConfirm}: ModalProps
   const [first, setFirst] = useState("")
   const [second, setSecond] = useState("")
   const aliases = useModelStore(s => s.aliases);
+  const firstRef = useRef<HTMLInputElement>(null);
+  useEffect(() => { if (enable) firstRef.current?.focus(); }, [enable]);
 
   function handleWarningReset() {
     setEmptyWarning(false);
@@ -51,6 +53,7 @@ export default function Modal( {enable, handleCancel, handleConfirm}: ModalProps
           {emptyWarning && (<p className="text-red-600 text-xs">Please fill in both fields.</p>)}
           {dupePhraseWarning && (<p className="text-red-600 text-xs">Phrase exists.</p>)}
           <input
+            ref={firstRef}
             placeholder="Phrase"
             value={first}
             onChange={e => setFirst(e.target.value)}

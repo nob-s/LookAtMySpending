@@ -28,7 +28,7 @@ export function Aliases() {
           <p>Add new alias</p>
           <Button onClick={() => setModalOpen(true)} name="New alias [4]" />
           <p className="text-sm text-yellow-700 dark:text-yellow-400">
-            Note: You can also press [4] while on the MAIN page to add aliases
+            Note: You can also press [4] while on ALL other pages to add aliases
           </p>
         </div>
       </div>
