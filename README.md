@@ -1,5 +1,11 @@
-# Financials Flexviewer (Work in Progress)
+# Financials Flexviewer
 
-## Vision
-- Upload CSV files of your bank statements and easily categorize transactions.
-- Export to json for easy saving between devices
+## Features
+- Ran entirely locally!
+- Upload CSV files of your bank statements
+- Add "Aliases" to replace long descriptions of bank statements
+- Edit bank statement data
+- Download and upload session json save file to transfer between multiple devices
+
+## Future features
+- Easily categorize transactions.
