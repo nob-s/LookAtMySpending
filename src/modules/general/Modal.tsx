@@ -80,8 +80,8 @@ export default function Modal( {enable, handleCancel, handleConfirm}: ModalProps
             className="border border-gray-300 dark:border-gray-600 rounded p-2 text-sm dark:bg-gray-700"
           />
           <div className="flex gap-2">
-            <Button name="Confirm" onClick={onConfirm} />
-            <Button name="Cancel" onClick={onCancel} />
+            <Button name={<>Cancel <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">Esc</kbd></>} onClick={onCancel} />
+            <Button name={<>Confirm <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">↵</kbd></>} onClick={onConfirm} />
           </div>
         </div>
       </div>

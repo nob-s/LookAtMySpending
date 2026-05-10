@@ -1,14 +1,13 @@
 import { type ChangeEvent, useState } from "react";
 import { Calc } from "../util/Calc.ts";
 import { FileParser } from "../parsers/FileParser.ts";
-import type { Transaction } from "../model/Transaction.ts";
 import * as React from "react";
 
-interface FileUploaderProps {
-  onTransactionsLoaded: (transactions: Transaction[]) => void;
+interface JsonUploaderProps {
+  onJsonLoaded: (jsonString: string) => void;
 }
 
-export const CsvUploader: React.FC<FileUploaderProps> = ({onTransactionsLoaded}) => {
+export const JsonUploader: React.FC<JsonUploaderProps> = ({onJsonLoaded}) => {
   const [file, setFile] = useState<File | null>(null);
 
   async function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
@@ -16,18 +15,18 @@ export const CsvUploader: React.FC<FileUploaderProps> = ({onTransactionsLoaded})
 
     const file = e.target.files[0];
 
-    if (!file.name.endsWith(".csv")) {
-      alert("File does not have a .csv extension!");
+    if (!file.name.endsWith(".json")) {
+      alert("File does not have a .json extension!");
       return;
     }
 
     setFile(file);
 
     try {
-      const trans: Array<Transaction> = await FileParser.parseCsvToTransactions(file);
-      onTransactionsLoaded(trans);
+      const jsonString: string = await FileParser.parseJsonToJsonString(file);
+      onJsonLoaded(jsonString);
     } catch (err) {
-      alert("Failed to parse CSV: " + err);
+      alert("Failed to parse JSON: " + err);
     }
   }
 
@@ -36,7 +35,7 @@ export const CsvUploader: React.FC<FileUploaderProps> = ({onTransactionsLoaded})
       <input
         onChange={handleFileChange}
         type="file"
-        accept=".csv"
+        accept=".json"
         className="
         w-full overflow-hidden
         border-r border-gray-500 dark:border-gray-500

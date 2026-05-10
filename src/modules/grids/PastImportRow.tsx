@@ -32,7 +32,7 @@ export default function PastImportRow( {tImport, onDeleteImport}: PastImportRowP
         }
       </div>
       <div className="ml-auto h-full">
-        <Button name={"Delete import"} onClick={() => {}}/>
+        <Button name={"Delete import"} onClick={onDeleteImport}/>
       </div>
     </div>
   )

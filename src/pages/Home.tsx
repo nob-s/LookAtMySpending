@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Topbar } from "../modules/Topbar.tsx";
-import { ImportData } from "./ImportData.tsx";
+import { Data } from "./Data.tsx";
 import { Aliases } from "./Aliases.tsx";
 import { Manage } from "./Manage.tsx";
 import { useUiStore } from "../store/useUiStore.ts";
@@ -35,7 +35,7 @@ export function Home() {
       <div className="flex-1 flex min-h-0">
         {mainWindow === WINDOW_ALIASES && <Aliases/>}
         {mainWindow === WINDOW_MANAGE && <Manage/>}
-        {mainWindow === WINDOW_IMPORT_DATA && <ImportData/>}
+        {mainWindow === WINDOW_IMPORT_DATA && <Data/>}
         {mainWindow === WINDOW_PAST_IMPORTS && <PastImport/>}
       </div>
     </div>

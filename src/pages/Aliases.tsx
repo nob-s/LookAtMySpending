@@ -31,10 +31,10 @@ export function Aliases() {
           <Button onClick={toggleAliasView} name={<>Toggle alias <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">T</kbd></>} />
           <p className="text-sm text-gray-700 dark:text-gray-300">
             Press{" "}
-            <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">4</kbd>
+            <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">Q</kbd>
             {" "}to add aliases, or{" "}
-            <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">5</kbd>
-            {" "}to toggle aliases, on all other pages.
+            <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">T</kbd>
+            {" "}to toggle aliases anywhere!
           </p>
         </div>
       </div>

@@ -76,7 +76,7 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData,
       <div className="flex flex-1 gap-2 justify-center">
         <TopbarButton name={<>Aliases <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">1</kbd></>} onClick={setWindowAliases} />
         <TopbarButton name={<>Main <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">2</kbd></>} onClick={setWindowManage}/>
-        <TopbarButton name={<>Import <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">3</kbd></>} onClick={setWindowImportData}/>
+        <TopbarButton name={<>Data <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">3</kbd></>} onClick={setWindowImportData}/>
         <TopbarButton name={<>History <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">4</kbd></>} onClick={setWindowPastImports}/>
       </div>
       <div className="ml-auto">

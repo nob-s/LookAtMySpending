@@ -12,7 +12,8 @@ export class Transaction {
   }
 
   private getDate(date: string): Date {
-    const [year, month, day] = date.split('-').map(Number);
+    const datePart = date.split('T')[0];
+    const [year, month, day] = datePart.split('-').map(Number);
     return new Date(year, month - 1, day);
   }
 
