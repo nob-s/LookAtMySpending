@@ -5,7 +5,7 @@ export default function AliasDisplay() {
   const aliases = useModelStore(s => s.aliases);
   const updateAlias = useModelStore(s => s.updateAlias);
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full p-2">
       {/* Headers */}
       <AliasRow phrase={"Phrase"} alias={"Alias"}/>
       {/* All transactions */}

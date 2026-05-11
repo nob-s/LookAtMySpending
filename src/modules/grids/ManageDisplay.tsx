@@ -1,10 +1,11 @@
 import type { Transaction } from "../../model/Transaction.ts";
 import ManageRow from "./ManageRow.tsx";
 import { MyFormat } from "../../util/MyFormat.ts";
+import { useModelStore } from "../../store/useModelStore.ts";
+import type { TransactionImport } from "../../model/TransactionImport.ts";
 
 interface MainDisplayProps {
-  transactions: Transaction[];
-  updateMethod?: (itemIndex: number, updated: Transaction) => void;
+  updateMethod: (itemIndex: number, updated: Transaction) => void;
 }
 
 function getNetAmount(transs: Transaction[]): number {
@@ -13,7 +14,13 @@ function getNetAmount(transs: Transaction[]): number {
     .reduce((a, b) => a + b, 0);
 }
 
-export default function ManageDisplay({transactions, updateMethod}: MainDisplayProps) {
+function mergeAllTransactions(transactions: TransactionImport[]): Transaction[] {
+  return transactions.flatMap((i) => i.transactions);
+}
+
+export default function ManageDisplay({updateMethod}: MainDisplayProps) {
+  const transactions = mergeAllTransactions(useModelStore(s => s.allTransactions));
+
   return (
     <div className="flex flex-col">
       {/* Headers */}
@@ -24,6 +31,7 @@ export default function ManageDisplay({transactions, updateMethod}: MainDisplayP
       {/* All transactions */}
       {transactions
         .map((trans, flatIndex): [number, typeof trans] => [flatIndex, trans])
+        .reverse()
         .toSorted((aa, bb) => {
           const a = aa[1];
           const b = bb[1];

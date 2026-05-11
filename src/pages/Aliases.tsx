@@ -1,7 +1,7 @@
 import { useModelStore } from "../store/useModelStore.ts";
 import Button from "../modules/general/Button.tsx";
 import AliasDisplay from "../modules/grids/AliasDisplay.tsx";
-import Modal from "../modules/general/Modal.tsx";
+import AliasModal from "../modules/general/AliasModal.tsx";
 import { useUiStore } from "../store/useUiStore.ts";
 
 export function Aliases() {
@@ -18,7 +18,7 @@ export function Aliases() {
   return (
     <div className="flex flex-1">
       {/* Popup */}
-      <Modal enable={modalOpen} handleCancel={() => setModalOpen(false)} handleConfirm={handleConfirm}/>
+      <AliasModal enable={modalOpen} handleCancel={() => setModalOpen(false)} handleConfirm={handleConfirm}/>
       {/* left bar */}
       <div className="
         flex flex-col max-h-full overflow-y-auto min-h-0

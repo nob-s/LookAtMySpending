@@ -2,6 +2,7 @@ import { Transaction } from "../../model/Transaction.ts";
 import { useEffect, useState } from "react";
 import { useModelStore } from "../../store/useModelStore.ts";
 import EditableCell from "./EditableCell.tsx";
+import type { TransactionImport } from "../../model/TransactionImport.ts";
 
 interface MainRowProps {
   date: string;
@@ -23,24 +24,34 @@ export default function ManageRow({date, description, amount, bank, updateMethod
   const isInAliasView = useModelStore(s => s.isInAliasView)
   const aliases = useModelStore(s => s.aliases);
 
-  function getBlurDesc(desc: string): string {
-    if (!isInAliasView) { return desc; }
+  const categories = useModelStore(s => s.categories);
+
+  const allTransactions = useModelStore(s => s.allTransactions);
+
+  function getAliasedDesc(desc: string): string {
     let best: { phrase: string; alias: string } | null = null;
     for (const [phrase, alias] of Object.entries(aliases)) {
-      if (description.toLowerCase().includes(phrase.toLowerCase())) {
+      if (desc.toLowerCase().includes(phrase.toLowerCase())) {
         if (!best || phrase.length > best.phrase.length) {
           best = { phrase, alias };
         }
       }
     }
-    return best ? best.alias : description;
+    return best ? best.alias : desc;
+  }
+
+  function mergeAllTransactions(transactions: TransactionImport[]): Transaction[] {
+    return transactions.flatMap((i) => i.transactions);
   }
 
   return (isEditable
-      ? <div className="
-        w-full grid grid-cols-[120px_1fr_100px_120px]
-        border-b border-gray-300 dark:border-gray-600
-        hover:bg-gray-100 dark:hover:bg-gray-700">
+      ? <div
+        style={{ gridTemplateColumns:
+            `120px 1fr 100px 120px ${categories!.map(() => '100px').join(' ')}`
+        }}
+        className="
+          grid border-b border-gray-300 dark:border-gray-600
+          hover:bg-gray-100 dark:hover:bg-gray-700">
         <EditableCell
           initial={date}
           onCommit={(v) => updateMethod(
@@ -48,7 +59,11 @@ export default function ManageRow({date, description, amount, bank, updateMethod
             new Transaction(v, transaction.description, transaction.amount.toFixed(2), transaction.bank))}
         />
         <input
-          value={isDescFocused ? rawDescription : getBlurDesc(rawDescription)}
+          value={isDescFocused
+            ? rawDescription
+            : isInAliasView
+            ? getAliasedDesc(rawDescription)
+            : rawDescription}
           onChange={(e) => setRawDescription(e.target.value)}
           onFocus={() => setIsDescFocused(true)}
           onBlur={(e) => {
@@ -78,16 +93,48 @@ export default function ManageRow({date, description, amount, bank, updateMethod
             flatIndex!,
             new Transaction(transaction.date, transaction.description, String(transaction.amount), v))}
         />
+        {categories.map((category) => (
+          <div
+            key={category}
+            onClick={() => {
+              mergeAllTransactions(allTransactions)
+                .map((trans, flatIndex): [number, typeof trans] => [flatIndex, trans])
+                .filter(([, trans]) =>
+                  getAliasedDesc(trans.description) === getAliasedDesc(transaction.description))
+                .forEach(([flatIndex, trans]) => updateMethod(
+                  flatIndex!,
+                  new Transaction(trans.date, trans.description, String(trans.amount),
+                    trans.bank, category === transaction.category ? "" : category)
+                ))
+            }}
+            className="border-r border-gray-300 dark:border-gray-600 p-1 flex items-center justify-center cursor-pointer"
+          >
+            <input
+              type="checkbox"
+              checked={category === transaction.category}
+              readOnly
+              className="w-4 h-4 pointer-events-none"
+            />
+          </div>
+        ))}
       </div>
 
-      : <div className="
-        grid grid-cols-[120px_1fr_100px_120px]
-        border-b border-gray-300 dark:border-gray-600
-        hover:bg-gray-100 dark:hover:bg-gray-700">
+      : <div
+        style={{ gridTemplateColumns:
+          `120px 1fr 100px 120px ${categories!.map(() => '100px').join(' ')}`
+        }}
+        className="
+          grid border-b border-gray-300 dark:border-gray-600
+          hover:bg-gray-100 dark:hover:bg-gray-700">
         <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm">{date}</p>
         <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm">{description}</p>
         <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-right">{amount}</p>
         <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm">{bank}</p>
+        {categories.map((category) => (
+          <p key={category} className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-center">
+            {bank !== "" && date !== "" ? category : ""}
+          </p>
+        ))}
       </div>
   );
 }

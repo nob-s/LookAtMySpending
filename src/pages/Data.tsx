@@ -23,6 +23,8 @@ export function Data() {
   const setAllTransactions = useModelStore((s) => s.setTransactions);
   const aliases = useModelStore((s) => s.aliases);
   const setAliases = useModelStore((s) => s.setAliases);
+  const categories = useModelStore((s) => s.categories);
+  const setCategories = useModelStore((s) => s.setCategories);
 
   function addRowsAndClear() {
     if (tempTransactions.length === 0) { return }
@@ -52,13 +54,14 @@ export function Data() {
     setAllTransactions(newModelStore.allTransactions);
     setTempTransactions(newModelStore.tempTransactions);
     setAliases(newModelStore.aliases);
+    setCategories(newModelStore.categories);
   }
   /*
   Takes store objects, serializes them to json, and download
    */
   function serializeAndDownloadJson(): void {
     const jsonString: string = FileParser.serializeStoreToJsonString(
-      allTransactions, tempTransactions, aliases)
+      allTransactions, tempTransactions, aliases, categories)
     FileParser.serializeJsonStringToJsonAndDownload(jsonString)
   }
 

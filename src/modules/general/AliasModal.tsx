@@ -3,13 +3,13 @@ import Button from "./Button.tsx";
 import { useModelStore } from "../../store/useModelStore.ts";
 import { useUiStore } from "../../store/useUiStore.ts";
 
-interface ModalProps {
+interface AliasModalProps {
   enable: boolean;
   handleCancel: () => void;
   handleConfirm: (first: string, second: string) => void;
 }
 
-export default function Modal( {enable, handleCancel, handleConfirm}: ModalProps) {
+export default function AliasModal({enable, handleCancel, handleConfirm}: AliasModalProps) {
   const [emptyWarning, setEmptyWarning] = useState(false);
   const [dupePhraseWarning, setDupePhraseWarning] = useState(false);
   const [first, setFirst] = useState("")

@@ -64,7 +64,8 @@ export class FileParser {
   Takes store objects and returns jsonString
    */
   static serializeStoreToJsonString(
-    allTransactions: TransactionImport[], tempTransactions: Transaction[], aliases: Record<string, string>): string {
+    allTransactions: TransactionImport[], tempTransactions: Transaction[],
+    aliases: Record<string, string>, categories: string[]): string {
     const payload = {
       allTransactions: allTransactions.map(ti => ({
         id: ti.id,
@@ -74,6 +75,7 @@ export class FileParser {
           description: t.description,
           amount: t.amount,
           bank: t.bank,
+          category: t.category,
         }))
       })),
       tempTransactions: tempTransactions.map(t => ({
@@ -81,8 +83,10 @@ export class FileParser {
         description: t.description,
         amount: t.amount,
         bank: t.bank,
+        category: t.category,
       })),
       aliases,
+      categories,
     }
 
     return JSON.stringify(payload, null, 2);
@@ -95,12 +99,14 @@ export class FileParser {
     allTransactions: TransactionImport[];
     tempTransactions: Transaction[];
     aliases: Record<string, string>;
+    categories: string[];
   } | null {
     type RawTransaction = {
       date: string;       // ISO string, not Date yet
       description: string;
       amount: number;     // number, not string yet
       bank: string;
+      category: string;
     }
 
     type RawTransactionImport = {
@@ -113,6 +119,7 @@ export class FileParser {
       allTransactions: RawTransactionImport[];
       tempTransactions: RawTransaction[];
       aliases: Record<string, string>;
+      categories: string[];
     }
 
     try {
@@ -120,16 +127,16 @@ export class FileParser {
 
       const allTransactions: TransactionImport[] = parsed.allTransactions.map((ti: RawTransactionImport) => {
         const transactions = ti.transactions.map((t: RawTransaction) =>
-          new Transaction(t.date, t.description, String(t.amount), t.bank)
+          new Transaction(t.date, t.description, String(t.amount), t.bank, t.category)
         );
         return new TransactionImport(transactions, ti.id);
       });
 
       const tempTransactions: Transaction[] = parsed.tempTransactions.map((t: RawTransaction) =>
-        new Transaction(t.date, t.description, String(t.amount), t.bank)
+        new Transaction(t.date, t.description, String(t.amount), t.bank, t.category)
       );
 
-      return { allTransactions, tempTransactions, aliases: parsed.aliases };
+      return { allTransactions, tempTransactions, aliases: parsed.aliases, categories: parsed.categories };
 
     } catch (e) {
       console.error("Failed to parse JSON", e);

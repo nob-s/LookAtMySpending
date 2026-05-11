@@ -5,12 +5,14 @@ import { Aliases } from "./Aliases.tsx";
 import { Manage } from "./Manage.tsx";
 import { useUiStore } from "../store/useUiStore.ts";
 import PastImport from "./PastImport.tsx";
+import Categories from "./Categories.tsx";
 
 export function Home() {
   const WINDOW_MANAGE = "manage"
   const WINDOW_ALIASES = "aliases"
   const WINDOW_IMPORT_DATA = "import_data"
   const WINDOW_PAST_IMPORTS = "past_imports"
+  const WINDOW_CATEGORIES = "categories"
 
   const [mainWindow, setMainWindow] = useState(WINDOW_IMPORT_DATA)
 
@@ -42,12 +44,14 @@ export function Home() {
         setWindowManage={() => setMainWindow(WINDOW_MANAGE)}
         setWindowAliases={() => setMainWindow(WINDOW_ALIASES)}
         setWindowImportData={() => setMainWindow(WINDOW_IMPORT_DATA)}
-        setWindowPastImports={() => setMainWindow(WINDOW_PAST_IMPORTS)}/>
+        setWindowPastImports={() => setMainWindow(WINDOW_PAST_IMPORTS)}
+        setWindowCategories={() => setMainWindow(WINDOW_CATEGORIES)}/>
       <div className="flex-1 flex min-h-0">
         {mainWindow === WINDOW_ALIASES && <Aliases/>}
         {mainWindow === WINDOW_MANAGE && <Manage/>}
         {mainWindow === WINDOW_IMPORT_DATA && <Data/>}
         {mainWindow === WINDOW_PAST_IMPORTS && <PastImport/>}
+        {mainWindow === WINDOW_CATEGORIES && <Categories/>}
       </div>
     </div>
   )

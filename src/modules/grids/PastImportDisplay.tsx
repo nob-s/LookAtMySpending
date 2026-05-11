@@ -8,7 +8,11 @@ export default function PastImportDisplay() {
 
   return (
     <div className="flex flex-col gap-y-4">
-      {allTransactions.map((imp) =>
+      {allTransactions
+        .sort((a: TransactionImport, b: TransactionImport) =>
+          b.transactions[0].date.getTime() - a.transactions[0].date.getTime()
+        )
+        .map((imp) =>
         <PastImportRow tImport={imp} onDeleteImport={() => removeTransactions(imp.id)}/>
       )}
     </div>

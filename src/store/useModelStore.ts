@@ -20,6 +20,12 @@ interface StoreState {
   addAlias: (phrase: string, alias: string) => void;
   removeAlias: (phrase: string) => void;
 
+  categories: string[];
+  addCategory: (name: string) => void;
+  removeCategory: (index: number) => void;
+  setCategories: (categories: string[]) => void;
+  updateCategory: (newCategory: string, index: number) => void;
+
   isInAliasView: boolean;
   toggleAliasView: () => void;
 }
@@ -82,6 +88,18 @@ export const useModelStore = create<StoreState>()(
       return { aliases };
     }),
 
+    categories: ["Transport", "Utils", "Routine"],
+    addCategory: (name: string) => set(s => ({ categories: [...s.categories, name] })),
+    removeCategory: (index: number) => set(s => ({
+      categories: s.categories.filter((_, i) => i !== index)
+    })),
+    setCategories: (categories: string[]) => set({ categories }),
+    updateCategory: (newCategory: string, index: number) => set(s => {
+      const categories = [...s.categories];
+      categories[index] = newCategory;
+      return { categories };
+    }),
+
     isInAliasView: false,
     toggleAliasView: () => set(s => ({ isInAliasView: !s.isInAliasView })),
   }),
@@ -97,7 +115,7 @@ export const useModelStore = create<StoreState>()(
               return value.map((importObj: any) =>
                 new TransactionImport(
                   importObj.transactions.map((t: any) =>
-                    new Transaction(new Date(t.date), t.description, String(t.amount), t.bank)
+                    new Transaction(new Date(t.date), t.description, String(t.amount), t.bank, t.category)
                   ),
                   importObj.id
                 )
@@ -105,7 +123,7 @@ export const useModelStore = create<StoreState>()(
             }
             if (key === 'tempTransactions' && Array.isArray(value)) {
               return value.map((t: any) =>
-                new Transaction(new Date(t.date), t.description, String(t.amount), t.bank)
+                new Transaction(new Date(t.date), t.description, String(t.amount), t.bank, t.category)
               );
             }
             return value;
