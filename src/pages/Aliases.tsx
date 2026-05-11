@@ -36,6 +36,9 @@ export function Aliases() {
             <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">T</kbd>
             {" "}to toggle aliases anywhere!
           </p>
+          <p className="text-sm text-gray-700 dark:text-gray-300">
+            Giving an Alias to a Phrase replaces all Descriptions that contain the Phrase with the Alias!
+          </p>
         </div>
       </div>
       <AliasDisplay/>

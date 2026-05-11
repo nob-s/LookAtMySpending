@@ -26,10 +26,10 @@ export default function ManageDisplay({updateMethod}: MainDisplayProps) {
   return (
     <div className="flex flex-col">
       {/* Headers */}
-      <ManageRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
-      {/* Sum of all transactions */}
-      <ManageRow date={""} description={"Total"} amount={MyFormat.formatAmount(getNetAmount(transactions, initialAmount))} bank={""}/>
-      <ManageRow date={"|"} description={""} amount={""} bank={""}/>
+      <div className="sticky top-0 z-10 bg-white dark:bg-gray-800">
+        <ManageRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
+        <ManageRow date={""} description={"Total"} amount={MyFormat.formatAmount(getNetAmount(transactions, initialAmount))} bank={""}/>
+      </div>
       {/* All transactions */}
       {transactions
         .map((trans, flatIndex): [number, typeof trans] => [flatIndex, trans])
