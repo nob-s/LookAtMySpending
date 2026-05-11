@@ -88,7 +88,7 @@ export const useModelStore = create<StoreState>()(
       return { aliases };
     }),
 
-    categories: ["Transport", "Utils", "Routine"],
+    categories: ["Transport", "Utils", "Invest"],
     addCategory: (name: string) => set(s => ({ categories: [...s.categories, name] })),
     removeCategory: (index: number) => set(s => ({
       categories: s.categories.filter((_, i) => i !== index)
