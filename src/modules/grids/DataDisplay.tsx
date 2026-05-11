@@ -19,7 +19,7 @@ export default function DataDisplay({transactions, updateMethod}: ImportDisplayP
       {/* Headers */}
       <DataRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
       {/* Sum of all transactions */}
-      <DataRow date={""} description={"Total"} amount={String(getNetAmount(transactions).toFixed(2))} bank={""}/>
+      <DataRow date={""} description={"Total"} amount={MyFormat.formatAmount(getNetAmount(transactions))} bank={""}/>
       <DataRow date={"|"} description={""} amount={""} bank={""}/>
       {/* All transactions */}
       {transactions.map((trans, flatIndex) =>

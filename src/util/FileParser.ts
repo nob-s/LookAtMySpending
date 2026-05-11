@@ -65,7 +65,7 @@ export class FileParser {
    */
   static serializeStoreToJsonString(
     allTransactions: TransactionImport[], tempTransactions: Transaction[],
-    aliases: Record<string, string>, categories: string[]): string {
+    aliases: Record<string, string>, categories: string[], initialAmount: number): string {
     const payload = {
       allTransactions: allTransactions.map(ti => ({
         id: ti.id,
@@ -87,6 +87,7 @@ export class FileParser {
       })),
       aliases,
       categories,
+      initialAmount,
     }
 
     return JSON.stringify(payload, null, 2);
@@ -100,6 +101,7 @@ export class FileParser {
     tempTransactions: Transaction[];
     aliases: Record<string, string>;
     categories: string[];
+    initialAmount: number;
   } | null {
     type RawTransaction = {
       date: string;       // ISO string, not Date yet
@@ -120,6 +122,7 @@ export class FileParser {
       tempTransactions: RawTransaction[];
       aliases: Record<string, string>;
       categories: string[];
+      initialAmount: number;
     }
 
     try {
@@ -136,7 +139,7 @@ export class FileParser {
         new Transaction(t.date, t.description, String(t.amount), t.bank, t.category)
       );
 
-      return { allTransactions, tempTransactions, aliases: parsed.aliases, categories: parsed.categories };
+      return { allTransactions, tempTransactions, aliases: parsed.aliases, categories: parsed.categories, initialAmount: parsed.initialAmount};
 
     } catch (e) {
       console.error("Failed to parse JSON", e);

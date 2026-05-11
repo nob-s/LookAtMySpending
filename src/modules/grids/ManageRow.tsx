@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useModelStore } from "../../store/useModelStore.ts";
 import EditableCell from "./EditableCell.tsx";
 import type { TransactionImport } from "../../model/TransactionImport.ts";
+import { MyFormat } from "../../util/MyFormat.ts";
 
 interface MainRowProps {
   date: string;
@@ -82,10 +83,10 @@ export default function ManageRow({date, description, amount, bank, updateMethod
           }}
           className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm"/>
         <EditableCell
-          initial={amount}
+          initial={MyFormat.formatAmount(transaction.amount)}
           onCommit={(v) => updateMethod(
             flatIndex!,
-            new Transaction(transaction.date, transaction.description, String(Number(v)), transaction.bank))}
+            new Transaction(transaction.date, transaction.description, String(Number(v.replace(/,/g, ''))), transaction.bank))}
         />
         <EditableCell
           initial={bank}

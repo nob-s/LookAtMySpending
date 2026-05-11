@@ -3,13 +3,14 @@ import ManageRow from "./ManageRow.tsx";
 import { MyFormat } from "../../util/MyFormat.ts";
 import { useModelStore } from "../../store/useModelStore.ts";
 import type { TransactionImport } from "../../model/TransactionImport.ts";
+import InitAmtRow from "./InitAmtRow.tsx";
 
 interface MainDisplayProps {
   updateMethod: (itemIndex: number, updated: Transaction) => void;
 }
 
-function getNetAmount(transs: Transaction[]): number {
-  return transs
+function getNetAmount(transs: Transaction[], initialAmount: number): number {
+  return initialAmount + transs
     .map(trans => trans.amount)
     .reduce((a, b) => a + b, 0);
 }
@@ -20,13 +21,14 @@ function mergeAllTransactions(transactions: TransactionImport[]): Transaction[] 
 
 export default function ManageDisplay({updateMethod}: MainDisplayProps) {
   const transactions = mergeAllTransactions(useModelStore(s => s.allTransactions));
+  const initialAmount = useModelStore(s => s.initialAmount);
 
   return (
     <div className="flex flex-col">
       {/* Headers */}
       <ManageRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
       {/* Sum of all transactions */}
-      <ManageRow date={""} description={"Total"} amount={String(getNetAmount(transactions).toFixed(2))} bank={""}/>
+      <ManageRow date={""} description={"Total"} amount={MyFormat.formatAmount(getNetAmount(transactions, initialAmount))} bank={""}/>
       <ManageRow date={"|"} description={""} amount={""} bank={""}/>
       {/* All transactions */}
       {transactions
@@ -51,6 +53,7 @@ export default function ManageDisplay({updateMethod}: MainDisplayProps) {
                            updateMethod={updateMethod} transaction={trans} flatIndex={flatIndex}/>
         }
       )}
+      <InitAmtRow initAmt={initialAmount}/>
     </div>
   );
 }

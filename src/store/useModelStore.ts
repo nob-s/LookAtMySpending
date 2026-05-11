@@ -28,6 +28,9 @@ interface StoreState {
 
   isInAliasView: boolean;
   toggleAliasView: () => void;
+
+  initialAmount: number;
+  setInitialAmount: (amount: number) => void;
 }
 
 function findImportAndItem(allTransactions: TransactionImport[], flatIndex: number): [number, number] {
@@ -102,6 +105,9 @@ export const useModelStore = create<StoreState>()(
 
     isInAliasView: false,
     toggleAliasView: () => set(s => ({ isInAliasView: !s.isInAliasView })),
+
+    initialAmount: 0,
+    setInitialAmount: (amount) => set({ initialAmount: amount }),
   }),
     {
       name: 'model-store',

@@ -13,4 +13,8 @@ export class MyFormat {
       String(date.getMonth() + 1).padStart(2, '0'),
     ].join('-');
   }
+
+  static formatAmount(amount: number): string {
+    return amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
 }
