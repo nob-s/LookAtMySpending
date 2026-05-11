@@ -42,7 +42,7 @@ export default function DataRow({date, description, amount, bank, updateMethod, 
         border-b border-gray-300 dark:border-gray-600
         hover:bg-gray-100 dark:hover:bg-gray-700">
         <EditableCell
-          initial={amount}
+          initial={date}
           onCommit={(v) => updateMethod(
             flatIndex!,
             new Transaction(v, transaction.description, transaction.amount.toFixed(2), transaction.bank))}
