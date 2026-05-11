@@ -18,14 +18,14 @@ export default function ImportDisplay({transactions, updateMethod}: ImportDispla
     <div className="flex flex-col">
       {/* Headers */}
       <ImportRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
-       {/* All transactions */}
+      {/* Sum of all transactions */}
+      <ImportRow date={MyFormat.formatMonthYear(transactions[0].date)} description={"Total"} amount={String(getNetAmount(transactions).toFixed(2))} bank={""}/>
+      {/* All transactions */}
       {transactions.map((trans, flatIndex) =>
         <ImportRow date={MyFormat.formatDate(trans.date)} description={trans.description}
                    amount={trans.amount.toFixed(2)} bank={trans.bank}
                    updateMethod={updateMethod} transaction={trans} flatIndex={flatIndex}/>
       )}
-      {/* Sum of all transactions */}
-      <ImportRow date={"Total"} description={""} amount={String(getNetAmount(transactions).toFixed(2))} bank={""}/>
     </div>
   );
 }

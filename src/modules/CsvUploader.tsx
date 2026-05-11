@@ -1,6 +1,6 @@
 import { type ChangeEvent, useState } from "react";
 import { Calc } from "../util/Calc.ts";
-import { FileParser } from "../parsers/FileParser.ts";
+import { FileParser } from "../util/FileParser.ts";
 import type { Transaction } from "../model/Transaction.ts";
 import * as React from "react";
 

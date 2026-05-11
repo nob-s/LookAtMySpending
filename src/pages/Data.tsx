@@ -4,7 +4,7 @@ import { NewTabHyperlink } from "../modules/general/NewTabHyperlink.tsx";
 import { useModelStore } from "../store/useModelStore.ts";
 import Button from "../modules/general/Button.tsx";
 import { JsonUploader } from "../modules/JsonUploader.tsx";
-import { FileParser } from "../parsers/FileParser.ts";
+import { FileParser } from "../util/FileParser.ts";
 
 
 
@@ -67,13 +67,16 @@ export function Data() {
           <CsvUploader onTransactionsLoaded={t => setTempTransactions(t)} />
           <Button onClick={addRowsAndClear} name="Add rows to all transactions" />
           <Button onClick={() => setTempTransactions([])} name="Clear imported data" />
+          <p className="text-sm text-gray-700 dark:text-gray-300">
+            Note: Uploading a CSV will automatically split the import by Bank and Month in the History tab
+          </p>
         </div>
         {/*JSON Import*/}
         <div className="flex flex-col gap-y-2">
           <p>Import your json save file</p>
           <JsonUploader onJsonLoaded={onJsonStringLoaded} />
           <p className="text-sm text-gray-700 dark:text-gray-300">
-            TAKE NOTE: Uploading a file INSTANTLY overrides all data. Use with CAUTION.
+            WARNING: Uploading a file INSTANTLY overrides all data. Use with CAUTION.
           </p>
         </div>
         {/*JSON Export*/}
