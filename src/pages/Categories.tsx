@@ -13,7 +13,7 @@ function CategoriesDisplay() {
   return (
     <div className="flex flex-col gap-y-4">
       {
-        categories.map((cat, idx) =>
+        categories.map((_, idx) =>
           <div className="flex gap-x-4 border border-gray-300 dark:border-gray-600">
             <EditableCell
               initial={categories[idx]}
