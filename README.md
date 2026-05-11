@@ -6,6 +6,6 @@
 - Add "Aliases" to replace long descriptions of bank statements
 - Edit bank statement data
 - Download and upload session json save file to transfer between multiple devices
-
-## Future features
 - Easily categorize transactions.
+## Future features
+- SUGGEST??
