@@ -1,5 +1,5 @@
 import type { TransactionImport } from "../../model/TransactionImport.ts";
-import ImportRow from "./ImportRow.tsx";
+import DataRow from "./DataRow.tsx";
 import { MyFormat } from "../../util/MyFormat.ts";
 import Button from "../general/Button.tsx";
 
@@ -19,15 +19,15 @@ export default function PastImportRow( {tImport, onDeleteImport}: PastImportRowP
       <div className="flex flex-col w-full">
         {
           firstFew.map((t) => (
-            <ImportRow date={MyFormat.formatDate(t.date)} description={t.description}
-                       amount={t.amount.toFixed(2)} bank={t.bank}/>
+            <DataRow date={MyFormat.formatDate(t.date)} description={t.description}
+                     amount={t.amount.toFixed(2)} bank={t.bank}/>
           ))
         }
-        <ImportRow date={"..."} description={"..."} amount={"..."} bank={"..."}/>
+        <DataRow date={"..."} description={"..."} amount={"..."} bank={"..."}/>
         {
           lastFew.map((t) => (
-            <ImportRow date={MyFormat.formatDate(t.date)} description={t.description}
-                       amount={t.amount.toFixed(2)} bank={t.bank}/>
+            <DataRow date={MyFormat.formatDate(t.date)} description={t.description}
+                     amount={t.amount.toFixed(2)} bank={t.bank}/>
           ))
         }
       </div>

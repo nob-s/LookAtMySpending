@@ -19,9 +19,11 @@ export default function ManageRow({date, description, amount, bank, updateMethod
   const [rawDescription, setRawDescription] = useState(description);
   const [isDescFocused, setIsDescFocused] = useState(false);
   const [rawAmount, setRawAmount] = useState(amount);
+  const [rawBank, setRawBank] = useState(amount);
   useEffect(() => { setRawDate(date); }, [date]);
   useEffect(() => { setRawDescription(description); }, [description]);
   useEffect(() => { setRawAmount(amount); }, [amount]);
+  useEffect(() => { setRawBank(bank); }, [bank]);
   const isInAliasView = useModelStore(s => s.isInAliasView)
   const aliases = useModelStore(s => s.aliases);
 
@@ -70,8 +72,9 @@ export default function ManageRow({date, description, amount, bank, updateMethod
           }
           className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-right"/>
         <input
-          value={bank}
-          onChange={(e) =>
+          value={rawBank}
+          onChange={(e) => setRawBank(e.target.value)}
+          onBlur={(e) =>
             updateMethod(flatIndex!,
               new Transaction(transaction.date, transaction.description, String(transaction.amount), e.target.value))
           }

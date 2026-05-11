@@ -12,7 +12,7 @@ interface ImportRowProps {
   flatIndex?: number;
 }
 
-export default function ImportRow({date, description, amount, bank, updateMethod, transaction, flatIndex}: ImportRowProps) {
+export default function DataRow({date, description, amount, bank, updateMethod, transaction, flatIndex}: ImportRowProps) {
   const isEditable =
     updateMethod != undefined && transaction !== undefined && flatIndex !== undefined;
   const [rawDate, setRawDate] = useState(date);

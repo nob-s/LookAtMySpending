@@ -1,10 +1,12 @@
 import { CsvUploader } from "../modules/CsvUploader.tsx";
-import ImportDisplay from "../modules/grids/ImportDisplay.tsx";
+import DataDisplay from "../modules/grids/DataDisplay.tsx";
 import { NewTabHyperlink } from "../modules/general/NewTabHyperlink.tsx";
 import { useModelStore } from "../store/useModelStore.ts";
 import Button from "../modules/general/Button.tsx";
 import { JsonUploader } from "../modules/JsonUploader.tsx";
 import { FileParser } from "../util/FileParser.ts";
+import { MyFormat } from "../util/MyFormat.ts";
+import type { Transaction } from "../model/Transaction.ts";
 
 
 
@@ -24,7 +26,17 @@ export function Data() {
 
   function addRowsAndClear() {
     if (tempTransactions.length === 0) { return }
-    addTransactionsToStore(tempTransactions);
+    const groups: Record<string, Transaction[]> = tempTransactions.reduce(
+      (acc: Record<string, Transaction[]>, trans: Transaction) => {
+        const key: string = MyFormat.formatMonthYear(trans.date) + trans.bank;
+        if (!acc[key]) {
+          acc[key] = [];
+        }
+        acc[key].push(trans)
+        return acc;
+      }, {}
+    );
+    Object.values(groups).forEach((group) => addTransactionsToStore(group));
     setTempTransactions([])
   }
   /*
@@ -90,7 +102,7 @@ export function Data() {
       <div className="flex-1 overflow-y-auto p-2">
         { tempTransactions.length === 0
           ? <p className="text-sm">No transactions imported yet.</p>
-          : <ImportDisplay updateMethod={updateTempTransactions} transactions={tempTransactions} />
+          : <DataDisplay updateMethod={updateTempTransactions} transactions={tempTransactions} />
         }
       </div>
     </div>
