@@ -1,6 +1,7 @@
 import { Transaction } from "../../model/Transaction.ts";
 import { useEffect, useState } from "react";
 import { useModelStore } from "../../store/useModelStore.ts";
+import EditableCell from "./EditableCell.tsx";
 
 interface ImportRowProps {
   date: string;
@@ -15,13 +16,10 @@ interface ImportRowProps {
 export default function DataRow({date, description, amount, bank, updateMethod, transaction, flatIndex}: ImportRowProps) {
   const isEditable =
     updateMethod != undefined && transaction !== undefined && flatIndex !== undefined;
-  const [rawDate, setRawDate] = useState(date);
   const [rawDescription, setRawDescription] = useState(description);
   const [isDescFocused, setIsDescFocused] = useState(false);
-  const [rawAmount, setRawAmount] = useState(amount);
-  useEffect(() => { setRawDate(date); }, [date]);
   useEffect(() => { setRawDescription(description); }, [description]);
-  useEffect(() => { setRawAmount(amount); }, [amount]);
+
   const isInAliasView = useModelStore(s => s.isInAliasView)
   const aliases = useModelStore(s => s.aliases);
 
@@ -43,14 +41,12 @@ export default function DataRow({date, description, amount, bank, updateMethod, 
         w-full grid grid-cols-[120px_1fr_100px_120px]
         border-b border-gray-300 dark:border-gray-600
         hover:bg-gray-100 dark:hover:bg-gray-700">
-        <input
-          value={rawDate}
-          onChange={e => setRawDate(e.target.value)}
-          onBlur={(e) =>
-            updateMethod(flatIndex!,
-              new Transaction(e.target.value, transaction.description, transaction.amount.toFixed(2), transaction.bank))
-          }
-          className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm"/>
+        <EditableCell
+          initial={amount}
+          onCommit={(v) => updateMethod(
+            flatIndex!,
+            new Transaction(v, transaction.description, transaction.amount.toFixed(2), transaction.bank))}
+        />
         <input
           value={isDescFocused ? rawDescription : getBlurDesc(rawDescription)}
           onChange={(e) => setRawDescription(e.target.value)}
@@ -60,22 +56,28 @@ export default function DataRow({date, description, amount, bank, updateMethod, 
             updateMethod(flatIndex!,
               new Transaction(transaction.date, e.target.value, String(transaction.amount), transaction.bank))
           }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              updateMethod(flatIndex!, new Transaction(transaction.date, e.currentTarget.value, String(transaction.amount), transaction.bank));
+              e.currentTarget.blur();
+            }
+            if (e.key === "Escape") {
+              setRawDescription(description);
+            }
+          }}
           className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm"/>
-        <input
-          value={rawAmount}
-          onChange={(e) => setRawAmount(e.target.value)}
-          onBlur={(e) =>
-            updateMethod(flatIndex!,
-              new Transaction(transaction.date, transaction.description, String(Number(e.target.value)), transaction.bank))
-          }
-          className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-right"/>
-        <input
-          value={bank}
-          onChange={(e) =>
-            updateMethod(flatIndex!,
-              new Transaction(transaction.date, transaction.description, String(transaction.amount), e.target.value))
-          }
-          className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm"/>
+        <EditableCell
+          initial={amount}
+          onCommit={(v) => updateMethod(
+            flatIndex!,
+            new Transaction(transaction.date, transaction.description, String(Number(v)), transaction.bank))}
+        />
+        <EditableCell
+          initial={bank}
+          onCommit={(v) => updateMethod(
+            flatIndex!,
+            new Transaction(transaction.date, transaction.description, String(transaction.amount), v))}
+        />
       </div>
 
       : <div className="

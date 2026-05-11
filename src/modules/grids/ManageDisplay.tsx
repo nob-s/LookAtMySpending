@@ -31,14 +31,14 @@ export default function ManageDisplay({transactions, updateMethod}: MainDisplayP
             return b.date.getTime() - a.date.getTime();
           }
           if (a.bank != b.bank) {
-            return a.bank > b.bank ? -1 : 1;
+            return a.bank.toLowerCase() > b.bank.toLowerCase() ? -1 : 1;
           }
           return b.date.getTime() - a.date.getTime();
         })
         .map((item) => {
           const trans = item[1];
           const flatIndex = item[0];
-          return <ManageRow date={MyFormat.formatDate(trans.date)} description={trans.description}
+          return <ManageRow key={trans.id} date={MyFormat.formatDate(trans.date)} description={trans.description}
                            amount={trans.amount.toFixed(2)} bank={trans.bank}
                            updateMethod={updateMethod} transaction={trans} flatIndex={flatIndex}/>
         }

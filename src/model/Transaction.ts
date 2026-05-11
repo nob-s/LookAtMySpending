@@ -1,10 +1,12 @@
 export class Transaction {
+  id: string;
   date: Date;
   description: string;
   amount: number;
   bank: string;
 
   constructor(date: Date|string, description: string, amount: string, bank: string) {
+    this.id = crypto.randomUUID()
     this.date = date instanceof Date ? date : this.getDate(date);
     this.description = description;
     this.amount = this.getAmount(amount);
