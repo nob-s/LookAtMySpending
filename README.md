@@ -1,19 +1,25 @@
 # Financials Flexviewer
 
-## Features
-- Ran entirely locally!
-- Save your progress: Download and upload json save file to transfer between multiple devices
-### Workflow
-- Upload CSV files of your bank statements
-- Edit bank statement data
-- Add Aliases to replace long descriptions of bank statements
-- Group transactions by your own categories
-- Filter transactions by categories, or uncategorised transactions
-### Additional features
-- Assigning a transaction with an Alias to a group also assigns ALL other transactions with the same Alias to the same group  
-E.g. All transactions with the Alias "public transport", when one of them is grouped under transport, all are also grouped
-- Delete batch of transactions grouped by month and bank in History tab
+> Runs entirely locally. Save and transfer progress via a JSON file across devices.
 
-## Future features
-- Add and delete rows for rare discrepancies when converting to CSV.
-(Taking suggestions)
+## Workflow
+
+1. **Upload CSVs** — import bank statements from one or more accounts
+2. **Edit data** — fix or adjust entries directly
+3. **Add aliases** — replace long or cryptic bank descriptions with readable names
+4. **Group into categories** — organise transactions under your own custom labels
+5. **Filter and review** — view by category, or surface uncategorised transactions
+
+## Features
+
+- **Alias bulk-assign** — grouping one transaction by alias automatically applies that category to all transactions sharing the same alias
+  - *Example: assign one "public transport" transaction to Transport, and all others with that alias are grouped too*
+- **Batch delete** — remove transactions in bulk by month and bank from the History tab
+- **Category filters** — isolate transactions by category or find uncategorised ones
+- **JSON portability** — download your save file and upload it on any device; no account needed
+
+## Roadmap
+
+- [ ] Add and delete rows for rare CSV discrepancies
+
+*Taking suggestions!*
