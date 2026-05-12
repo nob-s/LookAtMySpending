@@ -19,7 +19,7 @@ function CategoriesDisplay() {
   const updateTransaction = useModelStore(s => s.updateTransaction);
 
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4 overflow-y-auto px-1">
       {
         categories.map((_, idx) =>
           <div className="flex gap-x-4 border border-gray-300 dark:border-gray-600">
