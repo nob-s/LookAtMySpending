@@ -6,6 +6,7 @@ import type { TransactionImport } from "../../model/TransactionImport.ts";
 import { MyFormat } from "../../util/MyFormat.ts";
 
 interface MainRowProps {
+  colTemplate: string;
   date: string;
   description: string;
   amount: string;
@@ -15,7 +16,7 @@ interface MainRowProps {
   flatIndex?: number;
 }
 
-export default function ManageRow({date, description, amount, bank, updateMethod, transaction, flatIndex}: MainRowProps) {
+export default function ManageRow({ colTemplate, date, description, amount, bank, updateMethod, transaction, flatIndex}: MainRowProps) {
   const isEditable =
     updateMethod != undefined && transaction !== undefined && flatIndex !== undefined;
   const [rawDescription, setRawDescription] = useState(description);
@@ -28,6 +29,10 @@ export default function ManageRow({date, description, amount, bank, updateMethod
   const categories = useModelStore(s => s.categories);
 
   const allTransactions = useModelStore(s => s.allTransactions);
+
+  const className = transaction?.category !== ""
+    ? "bg-white dark:bg-gray-700 group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
+    : "bg-red-50 dark:bg-red-950 group-hover:bg-red-100 dark:group-hover:bg-red-900"
 
   function getAliasedDesc(desc: string): string {
     let best: { phrase: string; alias: string } | null = null;
@@ -47,9 +52,7 @@ export default function ManageRow({date, description, amount, bank, updateMethod
 
   return (isEditable
       ? <div
-        style={{ gridTemplateColumns:
-            `120px 1fr 100px 120px ${categories!.map(() => '100px').join(' ')}`
-        }}
+        style={{ gridTemplateColumns: colTemplate}}
         className="
           grid border-b border-gray-300 dark:border-gray-600
           hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -58,7 +61,7 @@ export default function ManageRow({date, description, amount, bank, updateMethod
           onCommit={(v) => updateMethod(
             flatIndex!,
             new Transaction(v, transaction.description, transaction.amount.toFixed(2), transaction.bank))}
-          className="bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
+          className={className}
         />
         <input
           value={isDescFocused
@@ -82,21 +85,21 @@ export default function ManageRow({date, description, amount, bank, updateMethod
               setRawDescription(description);
             }
           }}
-          className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm
-          bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"/>
+          className={`border-r border-gray-300 dark:border-gray-600 p-1 text-sm
+          ${className}`}/>
         <EditableCell
           initial={MyFormat.formatAmount(transaction.amount)}
           onCommit={(v) => updateMethod(
             flatIndex!,
             new Transaction(transaction.date, transaction.description, String(Number(v.replace(/,/g, ''))), transaction.bank))}
-          className="text-right bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
+          className={`text-right ${className}`}
         />
         <EditableCell
           initial={bank}
           onCommit={(v) => updateMethod(
             flatIndex!,
             new Transaction(transaction.date, transaction.description, String(transaction.amount), v))}
-          className="bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
+          className={className}
         />
         {categories.map((category) => (
           <div
@@ -112,9 +115,8 @@ export default function ManageRow({date, description, amount, bank, updateMethod
                     trans.bank, category === transaction.category ? "" : category)
                 ))
             }}
-            className="p-1 flex items-center justify-center cursor-pointer
-            border-r border-gray-300 dark:border-gray-600
-            bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
+            className={`p-1 flex items-center justify-center cursor-pointer
+            border-r border-gray-300 dark:border-gray-600 ${className}`}
           >
             <input
               type="checkbox"
@@ -127,9 +129,7 @@ export default function ManageRow({date, description, amount, bank, updateMethod
       </div>
 
       : <div
-        style={{ gridTemplateColumns:
-          `120px 1fr 100px 120px ${categories!.map(() => '100px').join(' ')}`
-        }}
+        style={{ gridTemplateColumns: colTemplate}}
         className="
           grid border-b border-gray-300 dark:border-gray-600
           hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -138,7 +138,10 @@ export default function ManageRow({date, description, amount, bank, updateMethod
         <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-right bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">{amount}</p>
         <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">{bank}</p>
         {categories.map((category) => (
-          <p key={category} className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-center bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">
+          <p key={category}
+            className={`
+            border-r border-gray-300 dark:border-gray-600 
+            p-1 text-sm text-center ${className}`}>
             {bank !== "" && date !== "" ? category : ""}
           </p>
         ))}

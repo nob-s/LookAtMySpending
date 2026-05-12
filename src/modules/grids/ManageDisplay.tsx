@@ -41,16 +41,24 @@ export default function ManageDisplay() {
   const virtualizer = useVirtualizer({
     count: sorted.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 32,
+    estimateSize: () => 28.833,
+    measureElement: el => el.getBoundingClientRect().height, // fixes drift
+    overscan: 100,
   });
+
+  const categories = useModelStore(s => s.categories);
+  const categoryColWidths = categories.map(name =>
+    Math.max(40, name.length * 8 + 16) + 'px'
+  );
+  const colTemplate = `120px 1fr 100px 120px ${categoryColWidths.join(' ')}`;
 
   return (
     <div className="flex flex-col overflow-auto h-full" ref={parentRef}>
       {/* Headers */}
       <div className="sticky top-0 z-10 bg-white dark:bg-gray-800">
-        <ManageRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
-        <ManageRow date={""} description={"Total"} amount={MyFormat.formatAmount(getNetAmount(transactions, initialAmount))} bank={""}/>
-        <ManageRow date={""} description={""} amount={""} bank={""}/>
+        <ManageRow colTemplate={colTemplate} date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
+        <ManageRow colTemplate={colTemplate} date={""} description={"Total"} amount={MyFormat.formatAmount(getNetAmount(transactions, initialAmount))} bank={""}/>
+        <ManageRow colTemplate={colTemplate} date={""} description={""} amount={""} bank={""}/>
       </div>
       {/* All transactions */}
       <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
@@ -62,6 +70,7 @@ export default function ManageDisplay() {
               style={{ position: 'absolute', top: virtualItem.start, width: '100%' }}
             >
               <ManageRow
+                colTemplate={colTemplate}
                 date={MyFormat.formatDate(trans.date)}
                 description={trans.description}
                 amount={trans.amount.toFixed(2)}
@@ -74,7 +83,7 @@ export default function ManageDisplay() {
           );
         })}
       </div>
-      <InitAmtRow initAmt={initialAmount}/>
+      <InitAmtRow colTemplate={colTemplate} initAmt={initialAmount}/>
     </div>
   );
 }

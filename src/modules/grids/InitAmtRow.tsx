@@ -3,10 +3,11 @@ import { useModelStore } from "../../store/useModelStore.ts";
 import { MyFormat } from "../../util/MyFormat.ts";
 
 interface InitAmtRowProps {
+  colTemplate: string;
   initAmt: number;
 }
 
-export default function InitAmtRow({ initAmt }: InitAmtRowProps) {
+export default function InitAmtRow({ colTemplate, initAmt }: InitAmtRowProps) {
   const categories = useModelStore(s => s.categories);
   const setInitialAmount = useModelStore(s => s.setInitialAmount);
   const [raw, setRaw] = useState(MyFormat.formatAmount(initAmt));
@@ -14,7 +15,7 @@ export default function InitAmtRow({ initAmt }: InitAmtRowProps) {
 
   return (
     <div
-      style={{ gridTemplateColumns: `120px 1fr 100px 120px ${categories.map(() => '100px').join(' ')}` }}
+      style={{ gridTemplateColumns: colTemplate }}
       className="grid border-b border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 group"
     >
       <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"></p>
