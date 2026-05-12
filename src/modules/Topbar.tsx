@@ -49,11 +49,11 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData,
     const handleKey = (e: KeyboardEvent) => {
       const inInput = e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement;
       if (inInput || (modalOpen && e.key !== "q")) return;
-      if (e.key === "1") setWindowAliases();
-      if (e.key === "2") setWindowManage();
-      if (e.key === "3") setWindowImportData();
-      if (e.key === "4") setWindowPastImports();
-      if (e.key === "5") setWindowCategories();
+      if (e.key === "1") setWindowManage();
+      if (e.key === "2") setWindowImportData();
+      if (e.key === "3") setWindowCategories();
+      if (e.key === "4") setWindowAliases();
+      if (e.key === "5") setWindowPastImports();
       if (e.key === "q") {
         e.preventDefault()
         toggleModal()
@@ -78,11 +78,11 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData,
       <AliasModal enable={modalOpen} handleCancel={() => setModalOpen(false)} handleConfirm={handleConfirm}/>
       {/*Actual Topbar*/}
       <div className="flex flex-1 gap-2 justify-center">
-        <TopbarButton name={<>Aliases <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">1</kbd></>} onClick={setWindowAliases} />
-        <TopbarButton name={<>Main <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">2</kbd></>} onClick={setWindowManage}/>
-        <TopbarButton name={<>Data <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">3</kbd></>} onClick={setWindowImportData}/>
-        <TopbarButton name={<>History <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">4</kbd></>} onClick={setWindowPastImports}/>
-        <TopbarButton name={<>Groups <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">5</kbd></>} onClick={setWindowCategories}/>
+        <TopbarButton name={<>Main <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">1</kbd></>} onClick={setWindowManage}/>
+        <TopbarButton name={<>Data <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">2</kbd></>} onClick={setWindowImportData}/>
+        <TopbarButton name={<>Groups <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">3</kbd></>} onClick={setWindowCategories}/>
+        <TopbarButton name={<>Aliases <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">4</kbd></>} onClick={setWindowAliases} />
+        <TopbarButton name={<>History <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">5</kbd></>} onClick={setWindowPastImports}/>
       </div>
       <div className="ml-auto">
         <TopbarButton name={"🌙"} onClick={toggleDarkMode} />

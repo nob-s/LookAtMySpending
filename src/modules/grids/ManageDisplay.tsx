@@ -29,6 +29,7 @@ export default function ManageDisplay({updateMethod}: MainDisplayProps) {
       <div className="sticky top-0 z-10 bg-white dark:bg-gray-800">
         <ManageRow date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
         <ManageRow date={""} description={"Total"} amount={MyFormat.formatAmount(getNetAmount(transactions, initialAmount))} bank={""}/>
+        <ManageRow date={""} description={""} amount={""} bank={""}/>
       </div>
       {/* All transactions */}
       {transactions

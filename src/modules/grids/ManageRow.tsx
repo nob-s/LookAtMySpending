@@ -52,12 +52,13 @@ export default function ManageRow({date, description, amount, bank, updateMethod
         }}
         className="
           grid border-b border-gray-300 dark:border-gray-600
-          hover:bg-gray-100 dark:hover:bg-gray-700">
+          hover:bg-gray-100 dark:hover:bg-gray-700 group">
         <EditableCell
           initial={date}
           onCommit={(v) => updateMethod(
             flatIndex!,
             new Transaction(v, transaction.description, transaction.amount.toFixed(2), transaction.bank))}
+          className="bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
         />
         <input
           value={isDescFocused
@@ -81,18 +82,21 @@ export default function ManageRow({date, description, amount, bank, updateMethod
               setRawDescription(description);
             }
           }}
-          className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm"/>
+          className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm
+          bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"/>
         <EditableCell
           initial={MyFormat.formatAmount(transaction.amount)}
           onCommit={(v) => updateMethod(
             flatIndex!,
             new Transaction(transaction.date, transaction.description, String(Number(v.replace(/,/g, ''))), transaction.bank))}
+          className="text-right bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
         />
         <EditableCell
           initial={bank}
           onCommit={(v) => updateMethod(
             flatIndex!,
             new Transaction(transaction.date, transaction.description, String(transaction.amount), v))}
+          className="bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
         />
         {categories.map((category) => (
           <div
@@ -108,7 +112,9 @@ export default function ManageRow({date, description, amount, bank, updateMethod
                     trans.bank, category === transaction.category ? "" : category)
                 ))
             }}
-            className="border-r border-gray-300 dark:border-gray-600 p-1 flex items-center justify-center cursor-pointer"
+            className="p-1 flex items-center justify-center cursor-pointer
+            border-r border-gray-300 dark:border-gray-600
+            bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
           >
             <input
               type="checkbox"
@@ -126,13 +132,13 @@ export default function ManageRow({date, description, amount, bank, updateMethod
         }}
         className="
           grid border-b border-gray-300 dark:border-gray-600
-          hover:bg-gray-100 dark:hover:bg-gray-700">
-        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm">{date}</p>
-        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm">{description}</p>
-        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-right">{amount}</p>
-        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm">{bank}</p>
+          hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">{date}</p>
+        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">{description}</p>
+        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-right bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">{amount}</p>
+        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">{bank}</p>
         {categories.map((category) => (
-          <p key={category} className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-center">
+          <p key={category} className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-center bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">
             {bank !== "" && date !== "" ? category : ""}
           </p>
         ))}

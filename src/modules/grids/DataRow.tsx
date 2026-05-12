@@ -40,13 +40,14 @@ export default function DataRow({date, description, amount, bank, updateMethod, 
   return (isEditable
       ? <div className="
         w-full grid grid-cols-[120px_1fr_100px_120px]
-        border-b border-gray-300 dark:border-gray-600
-        hover:bg-gray-100 dark:hover:bg-gray-700">
+        border-b border-gray-300 dark:border-gray-600 group
+        ">
         <EditableCell
           initial={date}
           onCommit={(v) => updateMethod(
             flatIndex!,
             new Transaction(v, transaction.description, transaction.amount.toFixed(2), transaction.bank))}
+          className="bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
         />
         <input
           value={isDescFocused ? rawDescription : getBlurDesc(rawDescription)}
@@ -66,29 +67,32 @@ export default function DataRow({date, description, amount, bank, updateMethod, 
               setRawDescription(description);
             }
           }}
-          className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm"/>
+          className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm
+          bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"/>
         <EditableCell
           initial={MyFormat.formatAmount(transaction.amount)}
           onCommit={(v) => updateMethod(
             flatIndex!,
             new Transaction(transaction.date, transaction.description, String(Number(v.replace(/,/g, ''))), transaction.bank))}
+          className="text-right bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
         />
         <EditableCell
           initial={bank}
           onCommit={(v) => updateMethod(
             flatIndex!,
             new Transaction(transaction.date, transaction.description, String(transaction.amount), v))}
+          className="bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
         />
       </div>
 
       : <div className="
         grid grid-cols-[120px_1fr_100px_120px]
         border-b border-gray-300 dark:border-gray-600
-        hover:bg-gray-100 dark:hover:bg-gray-700">
-        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm">{date}</p>
-        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm">{description}</p>
-        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-right">{amount}</p>
-        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm">{bank}</p>
+        group">
+        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">{date}</p>
+        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">{description}</p>
+        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm text-right bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">{amount}</p>
+        <p className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm bg-white dark:bg-gray-700  group-hover:bg-gray-200 dark:group-hover:bg-gray-800">{bank}</p>
       </div>
   );
 }

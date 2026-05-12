@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
-export default function EditableCell({ initial, onCommit }: {
+export default function EditableCell({ initial, onCommit, className}: {
   initial: string;
   onCommit: (value: string) => void;
+  className?: string;
 }) {
   const [raw, setRaw] = useState(initial);
   useEffect(() => { setRaw(initial); }, [initial]);
@@ -21,7 +22,8 @@ export default function EditableCell({ initial, onCommit }: {
           setRaw(initial);
         }
       }}
-      className="border-r border-gray-300 dark:border-gray-600 p-1 text-sm"
+      className={`
+      border-r border-gray-300 dark:border-gray-600 p-1 text-sm ${className ?? ""}`}
     />
   );
 }
