@@ -60,7 +60,7 @@ export default function ManageRow({ colTemplate, date, description, amount, bank
           initial={date}
           onCommit={(v) => updateMethod(
             flatIndex!,
-            new Transaction(v, transaction.description, transaction.amount.toFixed(2), transaction.bank))}
+            new Transaction(v, transaction.description, transaction.amount.toFixed(2), transaction.bank, transaction.category))}
           className={className}
         />
         <input
@@ -74,11 +74,11 @@ export default function ManageRow({ colTemplate, date, description, amount, bank
           onBlur={(e) => {
             setIsDescFocused(false)
             updateMethod(flatIndex!,
-              new Transaction(transaction.date, e.target.value, String(transaction.amount), transaction.bank))
+              new Transaction(transaction.date, e.target.value, String(transaction.amount), transaction.bank, transaction.category))
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              updateMethod(flatIndex!, new Transaction(transaction.date, e.currentTarget.value, String(transaction.amount), transaction.bank));
+              updateMethod(flatIndex!, new Transaction(transaction.date, e.currentTarget.value, String(transaction.amount), transaction.bank, transaction.category));
               e.currentTarget.blur();
             }
             if (e.key === "Escape") {
@@ -91,14 +91,14 @@ export default function ManageRow({ colTemplate, date, description, amount, bank
           initial={MyFormat.formatAmount(transaction.amount)}
           onCommit={(v) => updateMethod(
             flatIndex!,
-            new Transaction(transaction.date, transaction.description, String(Number(v.replace(/,/g, ''))), transaction.bank))}
+            new Transaction(transaction.date, transaction.description, String(Number(v.replace(/,/g, ''))), transaction.bank, transaction.category))}
           className={`text-right ${className}`}
         />
         <EditableCell
           initial={bank}
           onCommit={(v) => updateMethod(
             flatIndex!,
-            new Transaction(transaction.date, transaction.description, String(transaction.amount), v))}
+            new Transaction(transaction.date, transaction.description, String(transaction.amount), v, transaction.category))}
           className={className}
         />
         {categories.map((category) => (
