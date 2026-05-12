@@ -33,9 +33,6 @@ export default function ManageDisplay() {
       if (a.date.getMonth() !== b.date.getMonth() || a.date.getFullYear() != b.date.getFullYear()) {
         return b.date.getTime() - a.date.getTime();
       }
-      if (a.bank != b.bank) {
-        return a.bank.toLowerCase() > b.bank.toLowerCase() ? -1 : 1;
-      }
       return b.date.getTime() - a.date.getTime();
     });
   const virtualizer = useVirtualizer({
