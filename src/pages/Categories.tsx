@@ -2,13 +2,21 @@ import Button from "../modules/general/Button.tsx";
 import { useModelStore } from "../store/useModelStore.ts";
 import EditableCell from "../modules/grids/EditableCell.tsx";
 import { useState } from "react";
+import type { TransactionImport } from "../model/TransactionImport.ts";
+import { Transaction } from "../model/Transaction.ts";
+
+function mergeAllTransactions(transactions: TransactionImport[]): Transaction[] {
+  return transactions.flatMap((i) => i.transactions);
+}
 
 function CategoriesDisplay() {
   const [value, setValue] = useState("");
   const categories = useModelStore(s => s.categories);
-  const addCategory = useModelStore(s => s.addCategory)
-  const removeCategory = useModelStore(s => s.removeCategory)
-  const updateCategory = useModelStore(s => s.updateCategory)
+  const addCategory = useModelStore(s => s.addCategory);
+  const removeCategory = useModelStore(s => s.removeCategory);
+  const updateCategory = useModelStore(s => s.updateCategory);
+  const transactions = mergeAllTransactions(useModelStore(s => s.allTransactions));
+  const updateTransaction = useModelStore(s => s.updateTransaction);
 
   return (
     <div className="flex flex-col gap-y-4">
@@ -17,7 +25,16 @@ function CategoriesDisplay() {
           <div className="flex gap-x-4 border border-gray-300 dark:border-gray-600">
             <EditableCell
               initial={categories[idx]}
-              onCommit={(v) => updateCategory(v, idx)}/>
+              onCommit={(v) => {
+                updateCategory(v, idx);
+                transactions
+                  .map((trans, flatIndex): [number, typeof trans] => [flatIndex, trans])
+                  .filter(([, trans]) => trans.category === categories[idx])
+                  .forEach(([flatIndex, trans]) => updateTransaction(
+                    flatIndex,
+                    new Transaction(trans.date, trans.description, String(trans.amount), trans.bank, v)
+                  ));
+              }}/>
             <Button name={"Delete Group"} onClick={() => removeCategory(idx)}/>
           </div>)
       }

@@ -30,9 +30,7 @@ export default function ManageDisplay() {
   const parentRef = useRef<HTMLDivElement>(null);
   const sorted = transactions
     .map((trans, flatIndex): [number, typeof trans] => [flatIndex, trans])
-    .filter(([, trans]) => {
-      return groupFilter.includes(trans.category)
-    })
+    .filter(([, trans]) => groupFilter.includes(trans.category))
     .reverse()
     .toSorted((aa, bb) => {
       const a = aa[1];
