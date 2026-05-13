@@ -49,7 +49,7 @@ export default function ManageDisplay() {
   const categoryColWidths = categories.map(name =>
     Math.max(40, name.length * 8 + 16) + 'px'
   );
-  const colTemplate = `120px 1fr 100px 120px ${categoryColWidths.join(' ')}`;
+  const colTemplate = `120px 1fr 100px 90px ${categoryColWidths.join(' ')}`;
   const filterColTemplate = `1fr 70px 120px ${categoryColWidths.join(' ')}`
 
   return (
