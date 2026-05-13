@@ -81,7 +81,7 @@ export default function ManageDisplay() {
                   ? groupFilter.filter(c => c !== "")
                   : [...groupFilter, ""]
               )}
-              className={`px-1 text-center w-full ${categories.every(cat => groupFilter.includes(cat))
+              className={`px-1 text-center w-full ${groupFilter.includes("")
                 ? "text-blue-500"
                 : "text-gray-300 hover:text-gray-500"}`}>
               ▼
