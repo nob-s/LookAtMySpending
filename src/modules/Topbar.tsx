@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { type ReactNode, useEffect } from "react";
 import AliasModal from "./general/AliasModal.tsx";
 import { useModelStore } from "../store/useModelStore.ts";
 import { useUiStore } from "../store/useUiStore.ts";
 
 interface TopbarButtonProps {
-  name: React.ReactNode,
+  name: ReactNode,
   onClick: () => void,
 }
 
@@ -25,14 +25,13 @@ export const TopbarButton = ({name, onClick}: TopbarButtonProps) => {
 }
 
 interface TopbarProps {
-  setWindowAliases: () => void,
+  setWindowLabels: () => void,
   setWindowManage: () => void,
   setWindowImportData: () => void,
   setWindowPastImports: () => void,
-  setWindowCategories: () => void,
 }
 
-export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData, setWindowPastImports, setWindowCategories} : TopbarProps) => {
+export const Topbar = ( {setWindowLabels, setWindowManage, setWindowImportData, setWindowPastImports} : TopbarProps) => {
   const toggleDarkMode = useUiStore(s => s.toggleDarkMode)
   const addAliasToStore = useModelStore((s) => s.addAlias)
   const modalOpen = useUiStore(s => s.modalOpen)
@@ -51,9 +50,8 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData,
       if (inInput || (modalOpen && e.key !== "q")) return;
       if (e.key === "1") setWindowManage();
       if (e.key === "2") setWindowImportData();
-      if (e.key === "3") setWindowCategories();
-      if (e.key === "4") setWindowAliases();
-      if (e.key === "5") setWindowPastImports();
+      if (e.key === "3") setWindowLabels();
+      if (e.key === "4") setWindowPastImports();
       if (e.key === "q") {
         e.preventDefault()
         toggleModal()
@@ -64,8 +62,8 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData,
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [
-    setWindowAliases, setWindowManage, setWindowImportData,
-    setWindowPastImports, setWindowCategories,
+    setWindowLabels, setWindowManage, setWindowImportData,
+    setWindowPastImports,
     modalOpen, toggleModal, toggleAliasView]);
 
   return (
@@ -80,9 +78,8 @@ export const Topbar = ( {setWindowAliases, setWindowManage, setWindowImportData,
       <div className="flex flex-1 gap-2 justify-center">
         <TopbarButton name={<>Main <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">1</kbd></>} onClick={setWindowManage}/>
         <TopbarButton name={<>Data <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">2</kbd></>} onClick={setWindowImportData}/>
-        <TopbarButton name={<>Groups <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">3</kbd></>} onClick={setWindowCategories}/>
-        <TopbarButton name={<>Aliases <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">4</kbd></>} onClick={setWindowAliases} />
-        <TopbarButton name={<>History <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">5</kbd></>} onClick={setWindowPastImports}/>
+        <TopbarButton name={<>Labels <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">3</kbd></>} onClick={setWindowLabels} />
+        <TopbarButton name={<>History <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">4</kbd></>} onClick={setWindowPastImports}/>
       </div>
       <div className="ml-auto">
         <TopbarButton name={"🌙"} onClick={toggleDarkMode} />

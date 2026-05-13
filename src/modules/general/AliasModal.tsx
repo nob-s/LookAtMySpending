@@ -37,7 +37,7 @@ export default function AliasModal({enable, handleCancel, handleConfirm}: AliasM
       handleWarningReset();
       setDupePhraseWarning(true)
     } else {
-      handleConfirm(first, second)
+      handleConfirm(first.trim(), second)
       handleReset();
     }
   }

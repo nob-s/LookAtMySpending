@@ -15,7 +15,7 @@ export default function AliasRow({phrase, alias, updateMethod}: AliasRowProps) {
 
   return (isEditable
       ? <div className="
-        w-full grid grid-cols-[60%_40%]
+        grid grid-cols-[60%_40%]
         border-b border-gray-300 dark:border-gray-600
         hover:bg-gray-100 dark:hover:bg-gray-700">
         <input
