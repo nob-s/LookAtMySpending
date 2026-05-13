@@ -43,9 +43,9 @@ export function Labels() {
         </div>
         <div className="flex flex-wrap gap-x-1 gap-y-2 text-sm border-t
         py-2 border-gray-300 dark:border-gray-600">
-          <p>Add new Groups</p>
+          <p>Add new Categories</p>
           <p className="text-sm text-gray-700 dark:text-gray-300">
-            Label your transactions using groups added here!
+            Label your transactions using categories added here!
           </p>
         </div>
       </div>
