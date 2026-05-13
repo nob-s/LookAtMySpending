@@ -2,8 +2,8 @@ import { Transaction } from "../../model/Transaction.ts";
 import { useEffect, useState } from "react";
 import { useModelStore } from "../../store/useModelStore.ts";
 import EditableCell from "./EditableCell.tsx";
-import type { TransactionImport } from "../../model/TransactionImport.ts";
 import { MyFormat } from "../../util/MyFormat.ts";
+import { Calc } from "../../util/Calc.ts";
 
 interface MainRowProps {
   colTemplate: string;
@@ -44,10 +44,6 @@ export default function ManageRow({ colTemplate, date, description, amount, bank
       }
     }
     return best ? best.alias : desc;
-  }
-
-  function mergeAllTransactions(transactions: TransactionImport[]): Transaction[] {
-    return transactions.flatMap((i) => i.transactions);
   }
 
   return (isEditable
@@ -105,7 +101,7 @@ export default function ManageRow({ colTemplate, date, description, amount, bank
           <div
             key={category}
             onClick={() => {
-              mergeAllTransactions(allTransactions)
+              Calc.mergeAllTransactions(allTransactions)
                 .map((trans, flatIndex): [number, typeof trans] => [flatIndex, trans])
                 .filter(([, trans]) =>
                   getAliasedDesc(trans.description) === getAliasedDesc(transaction.description))

@@ -1,3 +1,6 @@
+import type { TransactionImport } from "../model/TransactionImport.ts";
+import { Transaction } from "../model/Transaction.ts";
+
 export class Calc {
   static bytesToFileSize(bytes: number): string {
     const kb: number = bytes / 1024;
@@ -14,5 +17,9 @@ export class Calc {
     }
     const tb: number = gb / 1024;
     return tb.toFixed() + " TB";
+  }
+
+  static mergeAllTransactions(transactions: TransactionImport[]): Transaction[] {
+    return transactions.flatMap((i) => i.transactions);
   }
 }

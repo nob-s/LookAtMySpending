@@ -2,10 +2,10 @@ import type { Transaction } from "../../model/Transaction.ts";
 import ManageRow from "./ManageRow.tsx";
 import { MyFormat } from "../../util/MyFormat.ts";
 import { useModelStore } from "../../store/useModelStore.ts";
-import type { TransactionImport } from "../../model/TransactionImport.ts";
 import InitAmtRow from "./InitAmtRow.tsx";
 import { useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import { Calc } from "../../util/Calc.ts";
 
 function getNetAmount(transs: Transaction[], initialAmount: number, groupFilter: string[], categories: string[]): number {
   return (categories.every(cat => groupFilter.includes(cat)) ? initialAmount : 0)
@@ -15,13 +15,9 @@ function getNetAmount(transs: Transaction[], initialAmount: number, groupFilter:
     .reduce((a, b) => a + b, 0);
 }
 
-function mergeAllTransactions(transactions: TransactionImport[]): Transaction[] {
-  return transactions.flatMap((i) => i.transactions);
-}
-
 export default function ManageDisplay() {
   const categories = useModelStore(s => s.categories);
-  const transactions = mergeAllTransactions(useModelStore(s => s.allTransactions));
+  const transactions = Calc.mergeAllTransactions(useModelStore(s => s.allTransactions));
   const updateTransaction =
     useModelStore((s) => s.updateTransaction);
   const initialAmount = useModelStore(s => s.initialAmount);

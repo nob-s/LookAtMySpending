@@ -2,12 +2,8 @@ import Button from "../modules/general/Button.tsx";
 import { useModelStore } from "../store/useModelStore.ts";
 import EditableCell from "../modules/grids/EditableCell.tsx";
 import { useState } from "react";
-import type { TransactionImport } from "../model/TransactionImport.ts";
 import { Transaction } from "../model/Transaction.ts";
-
-function mergeAllTransactions(transactions: TransactionImport[]): Transaction[] {
-  return transactions.flatMap((i) => i.transactions);
-}
+import { Calc } from "../util/Calc.ts";
 
 function CategoriesDisplay() {
   const [value, setValue] = useState("");
@@ -15,7 +11,7 @@ function CategoriesDisplay() {
   const addCategory = useModelStore(s => s.addCategory);
   const removeCategory = useModelStore(s => s.removeCategory);
   const updateCategory = useModelStore(s => s.updateCategory);
-  const transactions = mergeAllTransactions(useModelStore(s => s.allTransactions));
+  const transactions = Calc.mergeAllTransactions(useModelStore(s => s.allTransactions));
   const updateTransaction = useModelStore(s => s.updateTransaction);
 
   return (
