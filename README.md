@@ -8,7 +8,7 @@
 2. **Edit data** — fix or adjust entries directly
 3. **Add aliases** — replace long or cryptic bank descriptions with readable names
 4. **Group into categories** — organise transactions under your own custom labels
-5. **Filter and review** — view by category, or surface uncategorised transactions
+5. **Filter and review** — view by category and date range, or surface uncategorised transactions
 
 ## Features
 
