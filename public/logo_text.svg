@@ -1,0 +1,36 @@
+<svg width="100%" viewBox="0 0 680 320" role="img" xmlns="http://www.w3.org/2000/svg" style="">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">LookAtMySpending logo</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Logo for LookAtMySpending app featuring a stylized eye with a bar chart inside and the app name</desc>
+  <defs>
+    <clipPath id="eyeClip">
+      <path d="M280 160 Q340 100 400 160 Q340 220 280 160Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Eye outer shape -->
+  <path d="M260 160 Q340 88 420 160 Q340 232 260 160Z" fill="#E6F1FB" stroke="#378ADD" stroke-width="2.5" style="fill:rgb(230, 241, 251);stroke:rgb(55, 138, 221);color:rgb(251, 251, 254);stroke-width:2.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Bar chart inside the eye (clipped) -->
+  <g clip-path="url(#eyeClip)" style="fill:rgb(0, 0, 0);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
+    <!-- bars -->
+    <rect x="292" y="172" width="16" height="18" fill="#185FA5" rx="2" style="fill:rgb(24, 95, 165);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+    <rect x="314" y="155" width="16" height="35" fill="#378ADD" rx="2" style="fill:rgb(55, 138, 221);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+    <rect x="336" y="144" width="16" height="46" fill="#185FA5" rx="2" style="fill:rgb(24, 95, 165);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+    <rect x="358" y="161" width="16" height="29" fill="#378ADD" rx="2" style="fill:rgb(55, 138, 221);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+    <!-- subtle floor line -->
+    <line x1="284" y1="191" x2="382" y2="191" stroke="#0C447C" stroke-width="1" opacity="0.4" style="fill:rgb(0, 0, 0);stroke:rgb(12, 68, 124);color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.4;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  </g>
+
+  <!-- Eye iris / pupil circle -->
+  <circle cx="340" cy="160" r="18" fill="none" stroke="#185FA5" stroke-width="2" style="fill:none;stroke:rgb(24, 95, 165);color:rgb(251, 251, 254);stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="340" cy="160" r="7" fill="#185FA5" style="fill:rgb(24, 95, 165);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Eyelid line top highlight -->
+  <path d="M260 160 Q340 88 420 160" fill="none" stroke="#B5D4F4" stroke-width="1.5" opacity="0.7" style="fill:none;stroke:rgb(181, 212, 244);color:rgb(251, 251, 254);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.7;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Wordmark -->
+  <text x="340" y="262" text-anchor="middle" font-family="var(--font-sans)" font-size="22" font-weight="500" fill="#185FA5" letter-spacing="-0.3" style="fill:rgb(24, 95, 165);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Anthropic Sans, sans-serif;font-size:22px;font-weight:500;text-anchor:middle;dominant-baseline:auto">LookAtMy<tspan fill="#378ADD" style="fill:rgb(55, 138, 221);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Anthropic Sans, sans-serif;font-size:22px;font-weight:500;text-anchor:middle;dominant-baseline:auto">Spending</tspan></text>
+
+  <!-- Tagline -->
+  <text x="340" y="286" text-anchor="middle" font-family="var(--font-sans)" font-size="12" font-weight="400" fill="#888780" letter-spacing="0.5" style="fill:rgb(136, 135, 128);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Anthropic Sans, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:auto">Import · Sort · Understand</text>
+</svg>
