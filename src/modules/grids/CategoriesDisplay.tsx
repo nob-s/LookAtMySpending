@@ -1,4 +1,4 @@
-import Button from "../general/Button.tsx";
+import MyButton from "../general/MyButton.tsx";
 import { useModelStore } from "../../store/useModelStore.ts";
 import EditableCell from "./EditableCell.tsx";
 import { useState } from "react";
@@ -23,7 +23,7 @@ export default function CategoriesDisplay() {
         onChange={e => setValue(e.target.value)}
         className="border border-gray-300 dark:border-gray-600 rounded p-2 text-sm dark:bg-gray-700"
       />
-      <Button name={"Add new Category"} onClick={() => {addCategory(value); setValue("");}}/>
+      <MyButton name={"Add new Category"} onClick={() => {addCategory(value); setValue("");}}/>
       {
         categories.map((_, idx) =>
           <div className="flex gap-x-4 border border-gray-300 dark:border-gray-600">
@@ -39,7 +39,7 @@ export default function CategoriesDisplay() {
                     new Transaction(trans.date, trans.description, String(trans.amount), trans.bank, v)
                   ));
               }}/>
-            <Button name={"Delete Category"} onClick={() => removeCategory(idx)} className="text-sm"/>
+            <MyButton name={"Delete Category"} onClick={() => removeCategory(idx)} className="text-sm"/>
           </div>)
       }
     </div>

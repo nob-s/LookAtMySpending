@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Button from "./Button.tsx";
+import MyButton from "./MyButton.tsx";
 import { useModelStore } from "../../store/useModelStore.ts";
 import { useUiStore } from "../../store/useUiStore.ts";
 
@@ -80,8 +80,8 @@ export default function AliasModal({enable, handleCancel, handleConfirm}: AliasM
             className="border border-gray-300 dark:border-gray-600 rounded p-2 text-sm dark:bg-gray-700"
           />
           <div className="flex gap-2">
-            <Button name={<>Cancel <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">Esc</kbd></>} onClick={onCancel} />
-            <Button name={<>Confirm <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">↵</kbd></>} onClick={onConfirm} />
+            <MyButton name={<>Cancel <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">Esc</kbd></>} onClick={onCancel} />
+            <MyButton name={<>Confirm <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">↵</kbd></>} onClick={onConfirm} />
           </div>
         </div>
       </div>

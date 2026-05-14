@@ -7,11 +7,22 @@ import { useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { Calc } from "../../util/Calc.ts";
 import { useUiStore } from "../../store/useUiStore.ts";
+import { DateFilter } from "../general/DateFilter.tsx";
 
-function getNetAmount(transs: Transaction[], initialAmount: number, groupFilter: string[], categories: string[]): number {
+function getNetAmount(transs: Transaction[], initialAmount: number, groupFilter: string[], categories: string[], dateFilter: {start: string, end: string}): number {
   return (categories.every(cat => groupFilter.includes(cat)) ? initialAmount : 0)
     + transs
     .filter(trans => groupFilter.includes(trans.category))
+    .filter(trans => {
+      if (!dateFilter) return true;
+      const y = trans.date.getFullYear();
+      const m = trans.date.getMonth() + 1;
+      const [startYear, startMonth] = dateFilter.start ? dateFilter.start.split("-").map(Number) : [null, null];
+      const [endYear,   endMonth]   = dateFilter.end   ? dateFilter.end.split("-").map(Number)   : [null, null];
+      const afterStart = !startYear || y > startYear || (y === startYear && m >= startMonth!);
+      const beforeEnd  = !endYear   || y < endYear   || (y === endYear   && m <= endMonth!);
+      return afterStart && beforeEnd;
+    })
     .map(trans => trans.amount)
     .reduce((a, b) => a + b, 0);
 }
@@ -25,11 +36,22 @@ export default function ManageDisplay() {
   const initialAmount = useModelStore(s => s.initialAmount);
   const groupFilter = useUiStore(s => s.groupFilter);
   const setGroupFilter = useUiStore(s => s.setGroupFilter);
+  const dateFilter = useUiStore(s => s.dateFilter);
 
   const parentRef = useRef<HTMLDivElement>(null);
   const sorted = transactions
     .map((trans, flatIndex): [number, typeof trans] => [flatIndex, trans])
     .filter(([, trans]) => groupFilter.includes(trans.category))
+    .filter(([, trans]) => {
+      if (!dateFilter) return true;
+      const y = trans.date.getFullYear();
+      const m = trans.date.getMonth() + 1;
+      const [startYear, startMonth] = dateFilter.start ? dateFilter.start.split("-").map(Number) : [null, null];
+      const [endYear,   endMonth]   = dateFilter.end   ? dateFilter.end.split("-").map(Number)   : [null, null];
+      const afterStart = !startYear || y > startYear || (y === startYear && m >= startMonth!);
+      const beforeEnd  = !endYear   || y < endYear   || (y === endYear   && m <= endMonth!);
+      return afterStart && beforeEnd;
+    })
     .reverse()
     .toSorted((aa, bb) => {
       const a = aa[1];
@@ -42,6 +64,7 @@ export default function ManageDisplay() {
   // TODO Update virtualizer?
   const showInitAmt = categories.every(cat => groupFilter.includes(cat));
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: sorted.length + (showInitAmt ? 1 : 0),
     getScrollElement: () => parentRef.current,
@@ -63,9 +86,9 @@ export default function ManageDisplay() {
         {/* Filter toolbar*/}
         <div className="grid py-2 text-sm border border-gray-300 dark:border-gray-600"
              style={{ gridTemplateColumns: filterColTemplate }}>
-          <p className="text-right px-6">Filter by: </p>
+          <DateFilter/>
           <div className=" flex border border-gray-300 dark:border-gray-600">
-            <p className="text-right px-2">All</p>
+            <p className="text-right px-2 py-1">All</p>
             <button
               onClick={() => setGroupFilter(categories.every(cat => groupFilter.includes(cat))
                 ? []
@@ -78,7 +101,7 @@ export default function ManageDisplay() {
             </button>
           </div>
           <div className="flex border border-gray-300 dark:border-gray-600">
-            <p className="text-right px-2">Ungrouped</p>
+            <p className="text-right px-2 py-1">Ungrouped</p>
             <button
               onClick={() => setGroupFilter(
                 groupFilter.includes("")
@@ -108,7 +131,7 @@ export default function ManageDisplay() {
           ))}
         </div>
         <ManageRow colTemplate={colTemplate} date={"Date"} description={"Description"} amount={"Amount"} bank={"Bank"}/>
-        <ManageRow colTemplate={colTemplate} date={""} description={"Total"} amount={MyFormat.formatAmount(getNetAmount(transactions, initialAmount, groupFilter, categories))} bank={""}/>
+        <ManageRow colTemplate={colTemplate} date={""} description={"Total"} amount={MyFormat.formatAmount(getNetAmount(transactions, initialAmount, groupFilter, categories, dateFilter))} bank={""}/>
         <ManageRow colTemplate={colTemplate} date={""} description={""} amount={""} bank={""}/>
       </div>
       {/* All transactions */}

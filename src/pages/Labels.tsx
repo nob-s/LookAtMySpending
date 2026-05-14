@@ -1,5 +1,5 @@
 import { useModelStore } from "../store/useModelStore.ts";
-import Button from "../modules/general/Button.tsx";
+import MyButton from "../modules/general/MyButton.tsx";
 import AliasDisplay from "../modules/grids/AliasDisplay.tsx";
 import AliasModal from "../modules/general/AliasModal.tsx";
 import { useUiStore } from "../store/useUiStore.ts";
@@ -28,8 +28,8 @@ export function Labels() {
         bg-white dark:bg-gray-800">
         <div className="flex flex-wrap gap-x-1 gap-y-2 text-sm">
           <p>Add new alias</p>
-          <Button onClick={() => setModalOpen(true)} name={<>New alias <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">Q</kbd></>} />
-          <Button onClick={toggleAliasView} name={<>Toggle alias <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">T</kbd></>} />
+          <MyButton onClick={() => setModalOpen(true)} name={<>New alias <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">Q</kbd></>} />
+          <MyButton onClick={toggleAliasView} name={<>Toggle alias <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">T</kbd></>} />
           <p className="text-sm text-gray-700 dark:text-gray-300">
             Press{" "}
             <kbd className="px-1 rounded border border-gray-300 dark:border-gray-600 text-xs">Q</kbd>

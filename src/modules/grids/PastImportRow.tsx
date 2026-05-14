@@ -1,7 +1,7 @@
 import type { TransactionImport } from "../../model/TransactionImport.ts";
 import DataRow from "./DataRow.tsx";
 import { MyFormat } from "../../util/MyFormat.ts";
-import Button from "../general/Button.tsx";
+import MyButton from "../general/MyButton.tsx";
 
 interface PastImportRowProps {
   tImport: TransactionImport;
@@ -32,7 +32,7 @@ export default function PastImportRow( {tImport, onDeleteImport}: PastImportRowP
         }
       </div>
       <div className="ml-auto h-full">
-        <Button name={"Delete import"} onClick={onDeleteImport}/>
+        <MyButton name={"Delete import"} onClick={onDeleteImport}/>
       </div>
     </div>
   )

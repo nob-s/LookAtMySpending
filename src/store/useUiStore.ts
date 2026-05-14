@@ -12,6 +12,9 @@ interface UiStoreState {
 
   groupFilter: string[];
   setGroupFilter: (groupFilter: string[]) => void;
+
+  dateFilter: { start: string; end: string } | null;
+  setDateFilter: (filter: { start: string; end: string } | null) => void;
 }
 
 export const useUiStore = create<UiStoreState>()(
@@ -25,6 +28,9 @@ export const useUiStore = create<UiStoreState>()(
 
       groupFilter: [...useModelStore.getState().categories, ""],
       setGroupFilter: (groupFilter) => set({ groupFilter }),
+
+      dateFilter: null,
+      setDateFilter: (filter) => set({ dateFilter: filter }),
     }),
     {name: 'ui-store'}
   )

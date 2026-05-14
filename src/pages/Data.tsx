@@ -2,7 +2,7 @@ import { CsvUploader } from "../modules/CsvUploader.tsx";
 import DataDisplay from "../modules/grids/DataDisplay.tsx";
 import { NewTabHyperlink } from "../modules/general/NewTabHyperlink.tsx";
 import { useModelStore } from "../store/useModelStore.ts";
-import Button from "../modules/general/Button.tsx";
+import MyButton from "../modules/general/MyButton.tsx";
 import { JsonUploader } from "../modules/JsonUploader.tsx";
 import { FileParser } from "../util/FileParser.ts";
 import { MyFormat } from "../util/MyFormat.ts";
@@ -83,8 +83,8 @@ export function Data() {
             <NewTabHyperlink link={"https://statementsensei.streamlit.app/"}/>
           </div>
           <CsvUploader onTransactionsLoaded={t => setTempTransactions(t)} />
-          <Button onClick={addRowsAndClear} name="Add rows to all transactions" />
-          <Button onClick={() => setTempTransactions([])} name="Clear imported data" />
+          <MyButton onClick={addRowsAndClear} name="Add rows to all transactions" />
+          <MyButton onClick={() => setTempTransactions([])} name="Clear imported data" />
           <p className="text-sm text-gray-700 dark:text-gray-300">
             Note: Uploading a CSV will automatically split the import by Bank and Month in the History tab
           </p>
@@ -100,7 +100,7 @@ export function Data() {
         {/*JSON Export*/}
         <div className="flex flex-col gap-y-2">
           <p>Export your json save file</p>
-          <Button onClick={serializeAndDownloadJson} name="Download .json save file" />
+          <MyButton onClick={serializeAndDownloadJson} name="Download .json save file" />
         </div>
       </div>
 
