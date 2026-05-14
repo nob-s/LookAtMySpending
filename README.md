@@ -5,7 +5,7 @@ Runs entirely locally. Save and transfer progress via a JSON file across devices
 
 ## Workflow
 
-1. **Upload CSVs** — import bank statements from one or more accounts (Convert your statement Pdf to Csv [here](https://statementsensei.streamlit.app/))
+1. **Upload CSVs** — import bank statements from one or more accounts (Convert your statement PDF to CSV [here](https://statementsensei.streamlit.app/))
 2. **Edit data** — fix or adjust entries directly
 3. **Add aliases** — replace long or cryptic bank descriptions with readable names
 4. **Group into categories** — organise transactions under your own custom labels
