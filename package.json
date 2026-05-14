@@ -15,16 +15,18 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "@tanstack/react-virtual": "^3.13.24",
+    "date-fns": "^4.1.0",
     "gh-pages": "^6.3.0",
     "lucide-react": "^1.6.0",
     "react": "^19.2.4",
+    "react-day-picker": "^10.0.0",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.14.2",
     "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
-    "@types/node": "^24.12.0",
+    "@types/node": "^24.12.4",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
