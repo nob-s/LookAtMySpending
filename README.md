@@ -15,7 +15,7 @@ Runs entirely locally. Save and transfer progress via a JSON file across devices
 
 - **Alias bulk-assign** — grouping one transaction by alias automatically applies that category to all transactions sharing the same alias
   - *Example: assign one "public transport" transaction to Transport, and all others with that alias are grouped too*
-- **Batch delete** — remove transactions in bulk by month and bank from the History tab
+- **Batch delete** — remove transactions in bulk by month from the History tab
 - **Category filters** — isolate transactions by category or find uncategorised ones
 - **JSON portability** — download your save file and upload it on any device; no account needed
 
