@@ -34,17 +34,6 @@ export default function ManageRow({ colTemplate, date, description, amount, bank
     ? "bg-white dark:bg-gray-700 group-hover:bg-gray-200 dark:group-hover:bg-gray-800"
     : "bg-red-50 dark:bg-red-950 group-hover:bg-red-100 dark:group-hover:bg-red-900"
 
-  function getAliasedDesc(desc: string): string {
-    let best: { phrase: string; alias: string } | null = null;
-    for (const [phrase, alias] of Object.entries(aliases)) {
-      if (desc.toLowerCase().includes(phrase.toLowerCase())) {
-        if (!best || phrase.length > best.phrase.length) {
-          best = { phrase, alias };
-        }
-      }
-    }
-    return best ? best.alias : desc;
-  }
 
   return (isEditable
       ? <div
@@ -63,7 +52,7 @@ export default function ManageRow({ colTemplate, date, description, amount, bank
           value={isDescFocused
             ? rawDescription
             : isInAliasView
-            ? getAliasedDesc(rawDescription)
+            ? Calc.getAliasedDesc(rawDescription, aliases)
             : rawDescription}
           onChange={(e) => setRawDescription(e.target.value)}
           onFocus={() => setIsDescFocused(true)}
@@ -104,7 +93,7 @@ export default function ManageRow({ colTemplate, date, description, amount, bank
               Calc.mergeAllTransactions(allTransactions)
                 .map((trans, flatIndex): [number, typeof trans] => [flatIndex, trans])
                 .filter(([, trans]) =>
-                  getAliasedDesc(trans.description) === getAliasedDesc(transaction.description))
+                  Calc.getAliasedDesc(trans.description, aliases) === Calc.getAliasedDesc(transaction.description, aliases))
                 .forEach(([flatIndex, trans]) => updateMethod(
                   flatIndex!,
                   new Transaction(trans.date, trans.description, String(trans.amount),

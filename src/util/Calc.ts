@@ -22,4 +22,16 @@ export class Calc {
   static mergeAllTransactions(transactions: TransactionImport[]): Transaction[] {
     return transactions.flatMap((i) => i.transactions);
   }
+
+  static getAliasedDesc(desc: string, aliases: Record<string, string>): string {
+    let best: { phrase: string; alias: string } | null = null;
+    for (const [phrase, alias] of Object.entries(aliases)) {
+      if (desc.toLowerCase().includes(phrase.toLowerCase())) {
+        if (!best || phrase.length > best.phrase.length) {
+          best = { phrase, alias };
+        }
+      }
+    }
+    return best ? best.alias : desc;
+  }
 }

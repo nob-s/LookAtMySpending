@@ -12,6 +12,7 @@ export default function PastImportRow( {tImport, onDeleteImport}: PastImportRowP
   const sliceVal = 2;
   const firstFew = tImport.transactions.slice(0, sliceVal)
   const lastFew = tImport.transactions.slice(tImport.transactions.length - sliceVal, tImport.transactions.length)
+  const lengthString = tImport.transactions.length + " Transaction(s)"
   return (
     <div className="
       flex gap-x-4 items-center
@@ -23,13 +24,15 @@ export default function PastImportRow( {tImport, onDeleteImport}: PastImportRowP
                      amount={t.amount.toFixed(2)} bank={t.bank}/>
           ))
         }
-        <DataRow date={"..."} description={"..."} amount={"..."} bank={"..."}/>
-        {
-          lastFew.map((t) => (
-            <DataRow date={MyFormat.formatDate(t.date)} description={t.description}
-                     amount={t.amount.toFixed(2)} bank={t.bank}/>
-          ))
-        }
+        <DataRow date={". . ."} description={lengthString} amount={". . ."} bank={". . ."}/>
+        {tImport.transactions.length > 1 && (
+          <>
+            {lastFew.map((t) => (
+              <DataRow date={MyFormat.formatDate(t.date)} description={t.description}
+                       amount={t.amount.toFixed(2)} bank={t.bank}/>
+            ))}
+          </>
+        )}
       </div>
       <div className="ml-auto h-full">
         <MyButton name={"Delete import"} onClick={onDeleteImport}/>

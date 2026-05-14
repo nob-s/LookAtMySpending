@@ -6,7 +6,8 @@ import MyButton from "../modules/general/MyButton.tsx";
 import { JsonUploader } from "../modules/JsonUploader.tsx";
 import { FileParser } from "../util/FileParser.ts";
 import { MyFormat } from "../util/MyFormat.ts";
-import type { Transaction } from "../model/Transaction.ts";
+import { Transaction } from "../model/Transaction.ts";
+import { Calc } from "@/util/Calc.ts";
 
 
 
@@ -30,13 +31,18 @@ export function Data() {
 
   function addRowsAndClear() {
     if (tempTransactions.length === 0) { return }
+    const aliasToGroup: Record<string, string> = {};
+    Calc.mergeAllTransactions(allTransactions)
+      .map(trans => [trans.category, Calc.getAliasedDesc(trans.description, aliases)])
+      .forEach(([cat, ali]) => {aliasToGroup[ali] = cat;})
     const groups: Record<string, Transaction[]> = tempTransactions.reduce(
       (acc: Record<string, Transaction[]>, trans: Transaction) => {
-        const key: string = MyFormat.formatMonthYear(trans.date) + trans.bank;
+        const key: string = MyFormat.formatMonthYear(trans.date);
         if (!acc[key]) {
           acc[key] = [];
         }
-        acc[key].push(trans)
+        const category = aliasToGroup[Calc.getAliasedDesc(trans.description, aliases)] ?? "";
+        acc[key].push(new Transaction(trans.date, trans.description, String(trans.amount), trans.bank, category))
         return acc;
       }, {}
     );
