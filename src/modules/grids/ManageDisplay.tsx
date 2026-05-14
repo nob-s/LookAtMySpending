@@ -9,7 +9,7 @@ import { Calc } from "../../util/Calc.ts";
 import { useUiStore } from "../../store/useUiStore.ts";
 import { DateFilter } from "../general/DateFilter.tsx";
 
-function getNetAmount(transs: Transaction[], initialAmount: number, groupFilter: string[], categories: string[], dateFilter: {start: string, end: string}): number {
+function getNetAmount(transs: Transaction[], initialAmount: number, groupFilter: string[], categories: string[], dateFilter: {start: string, end: string} | null): number {
   return (categories.every(cat => groupFilter.includes(cat)) ? initialAmount : 0)
     + transs
     .filter(trans => groupFilter.includes(trans.category))
