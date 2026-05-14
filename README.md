@@ -1,6 +1,7 @@
-# Financials Flexviewer
+# LookAtMySpending
+*Import, sort, and understand your spending.*
 
-> Runs entirely locally. Save and transfer progress via a JSON file across devices.
+Runs entirely locally. Save and transfer progress via a JSON file across devices.
 
 ## Workflow
 
