@@ -17,6 +17,7 @@ function getNetAmount(transs: Transaction[], initialAmount: number, groupFilter:
 }
 
 export default function ManageDisplay() {
+  "use no memo";
   const categories = useModelStore(s => s.categories);
   const transactions = Calc.mergeAllTransactions(useModelStore(s => s.allTransactions));
   const updateTransaction =
@@ -39,13 +40,14 @@ export default function ManageDisplay() {
       return b.date.getTime() - a.date.getTime();
     });
   // TODO Update virtualizer?
+  const showInitAmt = categories.every(cat => groupFilter.includes(cat));
+
   const virtualizer = useVirtualizer({
-    count: sorted.length,
+    count: sorted.length + (showInitAmt ? 1 : 0),
     getScrollElement: () => parentRef.current,
     estimateSize: () => 28.833,
     measureElement: el => el.getBoundingClientRect().height, // fixes drift
     overscan: 100,
-    paddingEnd: 30
   });
 
   const categoryColWidths = categories.map(name =>
@@ -112,12 +114,16 @@ export default function ManageDisplay() {
       {/* All transactions */}
       <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
         {virtualizer.getVirtualItems().map((virtualItem) => {
+          if (showInitAmt && virtualItem.index === sorted.length) {
+            return (
+              <div key="initamt" style={{ position: 'absolute', top: virtualItem.start, width: '100%' }}>
+                <InitAmtRow colTemplate={colTemplate} initAmt={initialAmount}/>
+              </div>
+            );
+          }
           const [flatIndex, trans] = sorted[virtualItem.index];
           return (
-            <div
-              key={trans.id}
-              style={{ position: 'absolute', top: virtualItem.start, width: '100%' }}
-            >
+            <div key={trans.id} style={{ position: 'absolute', top: virtualItem.start, width: '100%' }}>
               <ManageRow
                 colTemplate={colTemplate}
                 date={MyFormat.formatDate(trans.date)}
@@ -131,12 +137,10 @@ export default function ManageDisplay() {
             </div>
           );
         })}
-        <div style={{ position: 'absolute', top: virtualizer.getTotalSize() - 30, width: '100%' }}>
-          {
-            categories.every(cat => groupFilter.includes(cat)) &&
+        {
+          categories.every(cat => groupFilter.includes(cat)) &&
             <InitAmtRow colTemplate={colTemplate} initAmt={initialAmount}/>
-          }
-        </div>
+        }
       </div>
     </div>
   );
