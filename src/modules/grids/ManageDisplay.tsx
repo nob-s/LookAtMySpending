@@ -3,9 +3,10 @@ import ManageRow from "./ManageRow.tsx";
 import { MyFormat } from "../../util/MyFormat.ts";
 import { useModelStore } from "../../store/useModelStore.ts";
 import InitAmtRow from "./InitAmtRow.tsx";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { Calc } from "../../util/Calc.ts";
+import { useUiStore } from "../../store/useUiStore.ts";
 
 function getNetAmount(transs: Transaction[], initialAmount: number, groupFilter: string[], categories: string[]): number {
   return (categories.every(cat => groupFilter.includes(cat)) ? initialAmount : 0)
@@ -21,7 +22,8 @@ export default function ManageDisplay() {
   const updateTransaction =
     useModelStore((s) => s.updateTransaction);
   const initialAmount = useModelStore(s => s.initialAmount);
-  const [groupFilter, setGroupFilter] = useState<string[]>([...categories, ""]);
+  const groupFilter = useUiStore(s => s.groupFilter);
+  const setGroupFilter = useUiStore(s => s.setGroupFilter);
 
   const parentRef = useRef<HTMLDivElement>(null);
   const sorted = transactions
