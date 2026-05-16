@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nob-s.github.io/LookAtMySpending/sitemap.xml
