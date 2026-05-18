@@ -2,6 +2,7 @@
 *Import, sort, and understand your spending.*
 
 Runs entirely locally. Save and transfer progress via a JSON file across devices.
+Built for manual labellers. This app won't auto-categorise your transactions — but if you prefer to label things yourself, it makes that much faster.
 
 ## Workflow
 
